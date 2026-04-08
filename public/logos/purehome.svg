@@ -1,0 +1,5 @@
+<svg width="200" height="64" viewBox="0 0 200 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="64" rx="10" fill="#F5F7FA"/>
+  <path d="M32 38L42 28L52 38" stroke="#0D2A52" stroke-width="2"/>
+  <text x="122" y="37" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#0D2A52">PureHome</text>
+</svg>

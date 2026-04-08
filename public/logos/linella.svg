@@ -1,0 +1,5 @@
+<svg width="200" height="64" viewBox="0 0 200 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="64" rx="10" fill="#F5F7FA"/>
+  <rect x="24" y="20" width="18" height="24" rx="4" fill="#0D2A52" opacity="0.2"/>
+  <text x="116" y="37" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0D2A52">Linella</text>
+</svg>
