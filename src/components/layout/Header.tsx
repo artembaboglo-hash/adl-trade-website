@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { navigation } from "@/data/navigation";
 import { cn } from "@/lib/utils";
-import { type Locale, withLocalePath } from "@/lib/i18n";
+import { type Locale, normalizePathname, withLocalePath } from "@/lib/i18n";
 import { dictionaries } from "@/data/dictionaries";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { LanguageSwitcher, type LanguageCode } from "@/components/ui/LanguageSwitcher";
@@ -16,7 +16,7 @@ export function Header({ locale }: { locale: Locale }) {
   const dict = dictionaries[locale];
   const pathname = usePathname();
   const router = useRouter();
-  const pathWithoutLocale = pathname ? pathname : "/";
+  const pathNormalized = normalizePathname(pathname ?? "/");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export function Header({ locale }: { locale: Locale }) {
 
   const handleLanguageSelect = (language: LanguageCode) => {
     setIsMenuOpen(false);
-    router.push(withLocalePath(language, pathWithoutLocale));
+    router.push(withLocalePath(language, pathNormalized));
   };
 
   return (
@@ -70,7 +70,7 @@ export function Header({ locale }: { locale: Locale }) {
             aria-label="Main"
           >
             {navigation.map((item) => {
-              const active = pathWithoutLocale === withLocalePath(locale, item.href);
+              const active = pathNormalized === withLocalePath(locale, item.href);
               return (
                 <Link
                   key={item.href}
@@ -145,7 +145,7 @@ export function Header({ locale }: { locale: Locale }) {
             <nav className="grid gap-0.5" aria-label="Mobile">
               {navigation.map((item) => {
                 const href = withLocalePath(locale, item.href);
-                const isActive = pathWithoutLocale === href;
+                const isActive = pathNormalized === href;
                 return (
                   <Link
                     key={item.href}

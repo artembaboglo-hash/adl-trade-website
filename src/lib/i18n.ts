@@ -7,14 +7,22 @@ export function isValidLocale(value: string): value is Locale {
   return locales.includes(value as Locale);
 }
 
+/** Collapses trailing slashes so `/en/about/` and `/en/about` compare equal. */
+export function normalizePathname(pathname: string): string {
+  if (!pathname || pathname === "") return "/";
+  const trimmed = pathname.replace(/\/+$/, "");
+  return trimmed === "" ? "/" : trimmed;
+}
+
 export function stripLocaleFromPath(pathname: string): string {
-  const parts = pathname.split("/");
+  const normalized = normalizePathname(pathname);
+  const parts = normalized.split("/");
   const maybeLocale = parts[1];
   if (maybeLocale && isValidLocale(maybeLocale)) {
     const next = "/" + parts.slice(2).join("/");
     return next === "/" ? "/" : next.replace(/\/+$/, "");
   }
-  return pathname === "" ? "/" : pathname;
+  return normalized === "" ? "/" : normalized;
 }
 
 export function withLocalePath(locale: Locale, pathname: string): string {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CompanyIntroSection, type IntroPillar } from "@/components/sections/CompanyIntroSection";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { StrengthsSection, type StrengthCard } from "@/components/sections/StrengthsSection";
+import { StrengthsSection, type StrengthItem } from "@/components/sections/StrengthsSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { CategoryCard } from "@/components/ui/Cards";
 import { PartnerLogoGrid } from "@/components/sections/PartnerLogoGrid";
@@ -26,8 +26,7 @@ type HomeCopy = {
   advantages: {
     eyebrow: string;
     title: string;
-    featured: StrengthCard;
-    supporting: [StrengthCard, StrengthCard, StrengthCard, StrengthCard];
+    items: [StrengthItem, StrengthItem, StrengthItem, StrengthItem];
   };
   partners: { eyebrow: string; title: string };
   split: {
@@ -77,32 +76,22 @@ const homeCopy: Record<Locale, HomeCopy> = {
     advantages: {
       eyebrow: "Strengths",
       title: "Why partners work with ADL Trade",
-      featured: {
-        title: "Own warehouse infrastructure",
-        description:
-          "Controlled storage, stock accuracy, and handling standards—so supply stays predictable and auditable.",
-        icon: "/icons/logistics.svg"
-      },
-      supporting: [
+      items: [
+        {
+          title: "Own warehouse infrastructure",
+          description: "Storage control and inventory management."
+        },
         {
           title: "Nationwide delivery across Moldova",
-          description: "Scheduled routes to retail chains, independent stores, and regional trade partners.",
-          icon: "/icons/network.svg"
+          description: "Regular supply to retail chains and points of sale."
         },
         {
           title: "Field teams and retail audit",
-          description: "In-store checks on availability, shelf execution, and compliance with agreed standards.",
-          icon: "/icons/analytics.svg"
-        },
-        {
-          title: "Retail and channel execution",
-          description: "Disciplined listing, planogram alignment, and coordinated activation across channels.",
-          icon: "/icons/partnership.svg"
+          description: "Monitoring availability, on-shelf execution, and product condition."
         },
         {
           title: "Sales support and shelf presence",
-          description: "Visibility programs, merchandising support, and a clear focus on sell-through.",
-          icon: "/icons/marketing.svg"
+          description: "Merchandising, visibility, and focus on sell-through."
         }
       ]
     },
@@ -167,32 +156,22 @@ const homeCopy: Record<Locale, HomeCopy> = {
     advantages: {
       eyebrow: "Avantaje",
       title: "De ce partenerii aleg ADL Trade",
-      featured: {
-        title: "Infrastructură logistică proprie",
-        description:
-          "Depozitare controlată, acuratețe a stocurilor și standarde de manipulare—pentru aprovizionare predictibilă și verificabilă.",
-        icon: "/icons/logistics.svg"
-      },
-      supporting: [
+      items: [
+        {
+          title: "Infrastructură logistică proprie",
+          description: "Controlul depozitării și gestionarea stocurilor."
+        },
         {
           title: "Livrare națională în Moldova",
-          description: "Rute programate către rețele de retail, magazine independente și parteneri regionali.",
-          icon: "/icons/network.svg"
+          description: "Livrări regulate către rețele și puncte de vânzare."
         },
         {
           title: "Echipe de teren și audit retail",
-          description: "Verificări în magazin: disponibilitate, execuție la raft și respectarea standardelor agreate.",
-          icon: "/icons/analytics.svg"
-        },
-        {
-          title: "Execuție retail și pe canale",
-          description: "Listare disciplinată, aliniere planogramă și activare coordonată în canale.",
-          icon: "/icons/partnership.svg"
+          description: "Controlul disponibilității, expunerii și stării produsului."
         },
         {
           title: "Suport vânzări și prezență la raft",
-          description: "Programe de vizibilitate, merchandising și focus clar pe sell-through.",
-          icon: "/icons/marketing.svg"
+          description: "Merchandising, vizibilitate și focus pe realizarea vânzărilor."
         }
       ]
     },
@@ -257,32 +236,22 @@ const homeCopy: Record<Locale, HomeCopy> = {
     advantages: {
       eyebrow: "Сильные стороны",
       title: "Почему партнёры выбирают ADL Trade",
-      featured: {
-        title: "Собственная складская инфраструктура",
-        description:
-          "Контролируемое хранение, точность запасов и стандарты обработки — чтобы поставки оставались прогнозируемыми и проверяемыми.",
-        icon: "/icons/logistics.svg"
-      },
-      supporting: [
+      items: [
+        {
+          title: "Собственная складская инфраструктура",
+          description: "Контроль хранения и управление товарными запасами"
+        },
         {
           title: "Доставка по всей Молдове",
-          description: "Регулярные маршруты к сетям, независимым точкам и региональным партнёрам.",
-          icon: "/icons/network.svg"
+          description: "Регулярные поставки в сети и торговые точки"
         },
         {
           title: "Полевые команды и аудит розницы",
-          description: "Проверки в торговых точках: наличие, выкладка и соблюдение согласованных стандартов.",
-          icon: "/icons/analytics.svg"
-        },
-        {
-          title: "Розница и исполнение по каналам",
-          description: "Дисциплина листинга, планограммы и согласованная активация в каналах.",
-          icon: "/icons/partnership.svg"
+          description: "Контроль наличия, выкладки и состояния товара"
         },
         {
           title: "Поддержка продаж и присутствие на полке",
-          description: "Программы видимости, мерчандайзинг и фокус на реализации.",
-          icon: "/icons/marketing.svg"
+          description: "Мерчандайзинг, видимость и фокус на реализации"
         }
       ]
     },
@@ -349,8 +318,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <StrengthsSection
         eyebrow={c.advantages.eyebrow}
         title={c.advantages.title}
-        featured={c.advantages.featured}
-        supporting={c.advantages.supporting}
+        items={c.advantages.items}
       />
 
       <section className="section-space bg-mono-50/40">

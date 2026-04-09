@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/data/site";
 import { AmbientBackdrop } from "@/components/layout/AmbientBackdrop";
+import { cn } from "@/lib/utils";
+
+const inter = Inter({
+  subsets: ["latin", "cyrillic"],
+  display: "swap"
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -21,7 +28,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="relative min-h-screen text-body">
+      <body className={cn(inter.className, "relative min-h-screen text-body")}>
         <AmbientBackdrop />
         <div className="relative z-10">{children}</div>
       </body>

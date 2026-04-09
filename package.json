@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf .next",
-    "dev": "WATCHPACK_POLLING=true next dev --hostname 127.0.0.1 --port 3000",
+    "dev": "WATCHPACK_POLLING=true next dev --hostname 0.0.0.0 --port 3000",
     "dev:clean": "npm run clean && npm run dev",
     "build": "next build",
     "build:clean": "npm run clean && npm run build",
+    "prestart": "node -e \"const fs=require('fs'); if(!fs.existsSync('.next/BUILD_ID')){console.error('No production build in .next — run npm run build first.'); process.exit(1)}\"",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "verify": "npm run lint && npm run build"
   },
   "dependencies": {
     "clsx": "^2.1.1",
