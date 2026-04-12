@@ -1,103 +1,205 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import {
+  AboutAsidePanel,
+  AboutOverviewPanel,
+  AboutPillarCard,
+  AboutSectionGlow
+} from "@/components/about/AboutPillarCard";
+import { AboutPageNav } from "@/components/about/AboutPageNav";
+import { DistributionFlowDiagram } from "@/components/about/DistributionFlowDiagram";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { ValueCard } from "@/components/ui/Cards";
+import { StatsBlock } from "@/components/ui/Stats";
+import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { CTASection } from "@/components/sections/CTASection";
-import { isValidLocale, withLocalePath } from "@/lib/i18n";
+import { PartnerMarqueeSection } from "@/components/sections/PartnerMarqueeSection";
+import { getAboutContent } from "@/data/about";
+import { partnersMarqueeCopy } from "@/data/partners-marquee";
+import { buyerChannelLogos, supplierBrandLogos } from "@/data/partner-logos";
+import { dictionaries } from "@/data/dictionaries";
+import { contactCtaLabel, resolveLocale, withLocalePath } from "@/lib/i18n";
+
+const SECTION_SCROLL = "scroll-mt-[148px]";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
-  if (!isValidLocale(locale)) return {};
+  const { locale: raw } = await params;
+  const locale = resolveLocale(raw);
+  if (!locale) return {};
+  const { meta } = getAboutContent(locale);
   return {
-    title: locale === "ro" ? "Despre Companie" : locale === "ru" ? "О Компании" : "About Company",
-    description:
-      locale === "ro"
-        ? "Aflați despre misiunea, viziunea și valorile ADL Trade."
-        : locale === "ru"
-          ? "Узнайте о миссии, видении и ценностях ADL Trade."
-          : "Learn about ADL Trade mission, vision, values, and market presence."
+    title: meta.title,
+    description: meta.description
   };
 }
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  if (!isValidLocale(locale)) notFound();
+  const { locale: raw } = await params;
+  const locale = resolveLocale(raw);
+  if (!locale) notFound();
 
-  const values = [
-    {
-      title: locale === "ro" ? "Misiune" : locale === "ru" ? "Миссия" : "Mission",
-      description:
-        locale === "ro"
-          ? "Construim punți de încredere între furnizorii globali și cererea locală."
-          : locale === "ru"
-            ? "Создаем надежный мост между глобальными поставщиками и локальным спросом."
-            : "Build dependable bridges between global suppliers and local market demand."
-    },
-    {
-      title: locale === "ro" ? "Viziune" : locale === "ru" ? "Видение" : "Vision",
-      description:
-        locale === "ro"
-          ? "Să fim cel mai de încredere partener de distribuție din regiune."
-          : locale === "ru"
-            ? "Быть самым надежным партнером по дистрибуции в регионе."
-            : "Be the most trusted distribution and market-entry partner in the region."
-    },
-    {
-      title: locale === "ro" ? "Valori" : locale === "ru" ? "Ценности" : "Values",
-      description:
-        locale === "ro"
-          ? "Integritate, excelență în execuție și parteneriate pe termen lung."
-          : locale === "ru"
-            ? "Честность, качество исполнения и долгосрочное партнерство."
-            : "Integrity, execution excellence, long-term cooperation, and accountability."
-    }
+  const c = getAboutContent(locale);
+  const dict = dictionaries[locale];
+  const partnersMarquee = partnersMarqueeCopy[locale];
+  const contactsHref = withLocalePath(locale, "/contacts");
+  const suppliersHref = withLocalePath(locale, "/suppliers");
+
+  const aboutNavItems = [
+    { href: "#about-overview", label: dict.ui.aboutNavOverview },
+    { href: "#about-foundation", label: dict.ui.aboutNavFoundation },
+    { href: "#about-what", label: dict.ui.aboutNavWhat },
+    { href: "#about-market", label: dict.ui.aboutNavMarket },
+    { href: "#about-why", label: dict.ui.aboutNavWhy },
+    { href: "#about-partners", label: dict.ui.aboutNavPartners }
   ];
 
   return (
     <>
       <HeroSection
+        eyebrow={c.hero.eyebrow}
+        title={c.hero.title}
+        subtitle={c.hero.subtitle}
+        primaryCta={{ label: c.hero.primaryCta.label, href: contactsHref }}
+        secondaryCta={{ label: c.hero.secondaryCta.label, href: suppliersHref }}
+      />
+
+      <AboutPageNav items={aboutNavItems} ariaLabel={dict.ui.aboutNavAriaLabel} />
+
+      <RevealOnScroll>
+        <section
+          id="about-overview"
+          className={`section-space relative section-rhythm-top ${SECTION_SCROLL}`}
+          aria-labelledby="about-overview-heading"
+        >
+          <AboutSectionGlow variant="light" />
+          <div className="container-main relative">
+            <SectionHeader eyebrow={c.overview.eyebrow} title={c.overview.title} headingId="about-overview-heading" />
+            <div className="mt-8 grid gap-10 lg:mt-10 lg:grid-cols-[minmax(0,1fr)_minmax(17.5rem,22rem)] lg:items-start lg:gap-12 xl:gap-16">
+              <AboutOverviewPanel className="min-w-0 lg:max-w-none">
+                <p className="text-lg font-medium leading-relaxed text-body md:text-xl">{c.overview.lead}</p>
+                <div className="mt-8 space-y-4 text-base leading-relaxed text-slate-600 md:text-[1.0625rem] lg:max-w-[65ch]">
+                  {c.overview.paragraphs.map((p, i) => (
+                    <p key={`overview-p-${i}`}>{p}</p>
+                  ))}
+                </div>
+              </AboutOverviewPanel>
+              <AboutAsidePanel aria-label={c.overview.bulletsTitle}>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">{c.overview.bulletsTitle}</p>
+                <ul className="mt-5 space-y-3.5 text-base leading-snug text-slate-700 md:text-[1.0625rem]">
+                  {c.overview.bullets.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-teal" aria-hidden />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </AboutAsidePanel>
+            </div>
+            <div className="mt-12 lg:mt-14">
+              <DistributionFlowDiagram title={c.distributionFlow.title} steps={c.distributionFlow.steps} />
+            </div>
+          </div>
+        </section>
+      </RevealOnScroll>
+
+      <RevealOnScroll>
+        <section id="about-foundation" className={`section-space relative bg-secondary ${SECTION_SCROLL}`} aria-labelledby="about-foundation-heading">
+          <AboutSectionGlow variant="muted" />
+          <div className="container-main relative">
+            <SectionHeader
+              eyebrow={c.foundation.eyebrow}
+              title={c.foundation.title}
+              center
+              headingId="about-foundation-heading"
+            />
+            <div className="mt-10 grid gap-5 md:grid-cols-3">
+              {c.mission.map((value, i) => (
+                <AboutPillarCard
+                  key={value.title}
+                  title={value.title}
+                  description={value.description}
+                  foundationIndex={i}
+                  featured={i === 1}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      </RevealOnScroll>
+
+      <RevealOnScroll>
+        <section id="about-what" className={`section-space relative ${SECTION_SCROLL}`} aria-labelledby="about-what-heading">
+          <AboutSectionGlow variant="light" />
+          <div className="container-main relative">
+            <SectionHeader
+              eyebrow={c.whatWeDo.eyebrow}
+              title={c.whatWeDo.title}
+              center
+              headingId="about-what-heading"
+            />
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {c.whatWeDo.items.map((item, i) => (
+                <AboutPillarCard key={item.title} title={item.title} description={item.description} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </RevealOnScroll>
+
+      <RevealOnScroll>
+        <section id="about-market" className={`section-space relative bg-secondary ${SECTION_SCROLL}`} aria-labelledby="about-market-heading">
+          <AboutSectionGlow variant="muted" />
+          <div className="container-main relative">
+            <SectionHeader
+              eyebrow={c.market.eyebrow}
+              title={c.market.title}
+              description={c.market.description}
+              center
+              headingId="about-market-heading"
+            />
+            <div className="mt-10">
+              <StatsBlock items={c.market.stats} elevated />
+            </div>
+          </div>
+        </section>
+      </RevealOnScroll>
+
+      <RevealOnScroll>
+        <section id="about-why" className={`section-space relative ${SECTION_SCROLL}`} aria-labelledby="about-why-heading">
+          <AboutSectionGlow variant="light" />
+          <div className="container-main relative">
+            <SectionHeader eyebrow={c.why.eyebrow} title={c.why.title} center headingId="about-why-heading" />
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {c.why.items.map((item, i) => (
+                <AboutPillarCard key={item.title} title={item.title} description={item.description} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </RevealOnScroll>
+
+      <RevealOnScroll>
+        <PartnerMarqueeSection
+          sectionId="about-partners"
+          eyebrow={partnersMarquee.eyebrow}
+          title={partnersMarquee.title}
+          description={partnersMarquee.description}
+          suppliersTitle={partnersMarquee.suppliersTitle}
+          buyersTitle={partnersMarquee.buyersTitle}
+          supplierLogos={supplierBrandLogos}
+          buyerLogos={buyerChannelLogos}
+        />
+      </RevealOnScroll>
+
+      <CTASection
+        variant="emphasis"
         title={
           locale === "ro"
-            ? "Companie structurată pentru parteneriate B2B pe termen lung"
+            ? "Construim următoarea etapă de creștere împreună"
             : locale === "ru"
-              ? "Структурированная компания для долгосрочного B2B-партнерства"
-              : "A structured company built for long-term B2B partnerships"
+              ? "Строим следующий этап роста вместе"
+              : "Build your next growth phase with ADL Trade"
         }
-        subtitle={
-          locale === "ro"
-            ? "ADL Trade combină expertiza locală cu execuția disciplinată pentru furnizori și cumpărători."
-            : locale === "ru"
-              ? "ADL Trade сочетает локальную экспертизу и дисциплину исполнения для поставщиков и покупателей."
-              : "ADL Trade combines local market insight with disciplined execution to support suppliers, buyers, and retail partners."
-        }
-      />
-      <section className="section-space">
-        <div className="container-main">
-          <SectionHeader
-            title={locale === "ro" ? "Prezentare Companie" : locale === "ru" ? "Обзор Компании" : "Company Overview"}
-            description={
-              locale === "ro"
-                ? "Operăm ca platformă B2B pentru import, distribuție și dezvoltare comercială."
-                : locale === "ru"
-                  ? "Мы работаем как B2B-платформа по импорту, дистрибуции и коммерческому развитию."
-                  : "We operate as a professional B2B platform for import, distribution, and commercial development in Moldova and nearby markets."
-            }
-          />
-        </div>
-      </section>
-      <section className="section-space bg-secondary">
-        <div className="container-main">
-          <SectionHeader title={locale === "ro" ? "Misiune, Viziune, Valori" : locale === "ru" ? "Миссия, Видение, Ценности" : "Mission, Vision, Values"} center />
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {values.map((value) => (
-              <ValueCard key={value.title} title={value.title} description={value.description} />
-            ))}
-          </div>
-        </div>
-      </section>
-      <CTASection
-        title={locale === "ro" ? "Construim următoarea etapă de creștere împreună" : locale === "ru" ? "Строим следующий этап роста вместе" : "Build your next growth phase with ADL Trade"}
         description={
           locale === "ro"
             ? "Suntem deschiși pentru parteneriate strategice cu furnizori, cumpărători și parteneri de business."
@@ -105,7 +207,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               ? "Мы открыты к стратегическим партнерствам с поставщиками и покупателями."
               : "Our team is open to strategic partnerships with suppliers, buyers, and institutional business partners."
         }
-        ctaHref={withLocalePath(locale, "/contacts")}
+        ctaHref={contactsHref}
+        ctaLabel={contactCtaLabel(locale)}
       />
     </>
   );

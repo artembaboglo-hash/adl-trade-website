@@ -11,6 +11,7 @@ type BrandLogoProps = {
 };
 
 export function BrandLogo({ className, priority }: BrandLogoProps) {
+  // Inline max height keeps the logo sane if global CSS chunks do not load (preview / cache / tooling).
   return (
     <Image
       src={LOGO_SRC}
@@ -19,6 +20,7 @@ export function BrandLogo({ className, priority }: BrandLogoProps) {
       height={INTRINSIC_H}
       priority={priority}
       sizes="(max-width: 768px) 198px, 242px"
+      style={{ maxHeight: "2.75rem", width: "auto", height: "auto" }}
       className={cn(
         "h-[2.475rem] w-auto object-contain object-left md:h-[2.75rem]",
         className

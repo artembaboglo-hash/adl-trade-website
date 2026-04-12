@@ -1,15 +1,41 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
 type HeroSectionProps = {
   title: string;
   subtitle: string;
+  /** Defaults to "ADL Trade" (home). Use e.g. "About" on the About page. */
+  eyebrow?: string;
+  /** Tighter vertical rhythm and typography (e.g. contacts, utility pages). */
+  size?: "default" | "compact";
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
+  /** Home: photo beside headline on large screens; stacked below copy on small screens. */
+  media?: { src: string; alt: string };
 };
 
-export function HeroSection({ title, subtitle, primaryCta, secondaryCta }: HeroSectionProps) {
+export function HeroSection({
+  title,
+  subtitle,
+  eyebrow = "ADL Trade",
+  size = "default",
+  primaryCta,
+  secondaryCta,
+  media
+}: HeroSectionProps) {
+  const isCompact = size === "compact";
+  const showMedia = Boolean(media) && !isCompact;
+  const mediaUnoptimized = media?.src.endsWith(".svg") ?? false;
+
   return (
-    <section className="relative isolate overflow-hidden bg-transparent pt-20 pb-24 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9)] md:pt-28 md:pb-32 lg:pt-36 lg:pb-40">
+    <section
+      className={
+        isCompact
+          ? "relative isolate overflow-hidden bg-transparent pt-16 pb-10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9)] md:pt-20 md:pb-12"
+          : "relative isolate overflow-hidden bg-transparent pt-20 pb-24 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9)] md:pt-28 md:pb-32 lg:pt-36 lg:pb-40"
+      }
+    >
       {/* Hero-local layered depth (scoped to this section; sits above global AmbientBackdrop) */}
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.65)_0%,rgba(248,250,252,0.15)_28%,transparent_55%)]" />
@@ -20,27 +46,35 @@ export function HeroSection({ title, subtitle, primaryCta, secondaryCta }: HeroS
         <div className="absolute inset-0 shadow-[inset_0_0_100px_-40px_rgba(13,42,82,0.04)]" />
       </div>
       {/* Soft turquoise ambient — right */}
-      <div
-        className="pointer-events-none absolute -right-32 top-1/2 z-[1] h-[min(560px,85vw)] w-[min(560px,85vw)] -translate-y-1/2 rounded-full bg-gradient-to-br from-cyan-100/80 via-accent-teal/25 to-accent-tealDark/20 blur-3xl"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -right-10 top-8 z-[1] h-72 w-72 rounded-full bg-gradient-to-bl from-accent-teal/35 via-teal-200/25 to-transparent opacity-70 blur-2xl"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -right-4 bottom-0 z-[1] h-96 w-96 rounded-full bg-gradient-to-tl from-accent-tealDark/15 to-transparent blur-[100px]"
-        aria-hidden
-      />
-      {/* Main focal orb — soft turquoise gradient, blur + glow (no border / frame) */}
-      <div
-        className="pointer-events-none absolute right-[-5%] top-1/2 z-[1] hidden h-[min(420px,50vw)] max-h-[520px] w-[min(420px,50vw)] max-w-[520px] -translate-y-1/2 rounded-full bg-gradient-to-br from-cyan-200/50 via-accent-teal/35 to-accent-tealDark/30 opacity-95 blur-3xl md:block"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute right-[2%] top-1/2 z-[1] hidden h-[min(280px,38vw)] w-[min(280px,38vw)] -translate-y-1/2 rounded-full bg-gradient-to-tr from-accent-teal/25 to-accent-tealDark/20 blur-2xl shadow-glow-teal md:block"
-        aria-hidden
-      />
+      {!isCompact ? (
+        <>
+          <div
+            className="pointer-events-none absolute -right-32 top-1/2 z-[1] h-[min(560px,85vw)] w-[min(560px,85vw)] -translate-y-1/2 rounded-full bg-gradient-to-br from-cyan-100/80 via-accent-teal/25 to-accent-tealDark/20 blur-3xl"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute -right-10 top-8 z-[1] h-72 w-72 rounded-full bg-gradient-to-bl from-accent-teal/35 via-teal-200/25 to-transparent opacity-70 blur-2xl"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute -right-4 bottom-0 z-[1] h-96 w-96 rounded-full bg-gradient-to-tl from-accent-tealDark/15 to-transparent blur-[100px]"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute right-[-5%] top-1/2 z-[1] hidden h-[min(420px,50vw)] max-h-[520px] w-[min(420px,50vw)] max-w-[520px] -translate-y-1/2 rounded-full bg-gradient-to-br from-cyan-200/50 via-accent-teal/35 to-accent-tealDark/30 opacity-95 blur-3xl md:block motion-safe:animate-hero-ambient-pulse motion-reduce:animate-none"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute right-[2%] top-1/2 z-[1] hidden h-[min(280px,38vw)] w-[min(280px,38vw)] -translate-y-1/2 rounded-full bg-gradient-to-tr from-accent-teal/25 to-accent-tealDark/20 blur-2xl shadow-glow-teal md:block"
+            aria-hidden
+          />
+        </>
+      ) : (
+        <div
+          className="pointer-events-none absolute -right-24 top-0 z-[1] h-48 w-48 rounded-full bg-gradient-to-br from-accent-teal/20 to-transparent blur-2xl md:h-56 md:w-56"
+          aria-hidden
+        />
+      )}
       {/* Hairline depth at bottom — separates hero from next section */}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-px bg-gradient-to-r from-transparent via-slate-200/80 to-transparent"
@@ -48,21 +82,53 @@ export function HeroSection({ title, subtitle, primaryCta, secondaryCta }: HeroS
       />
 
       <div className="container-main relative z-10">
-        <div className="max-w-4xl">
-          <div className="flex flex-col gap-3">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent-teal">ADL Trade</p>
+        <div
+          className={cn(
+            showMedia && "grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(260px,42%)] lg:gap-12 xl:gap-14",
+            !showMedia && (isCompact ? "max-w-3xl" : "max-w-4xl")
+          )}
+        >
+          <div
+            className={cn(
+              showMedia && "min-w-0 max-w-4xl",
+              !showMedia && isCompact && "max-w-3xl",
+              !showMedia && !isCompact && "max-w-4xl"
+            )}
+          >
+          <div className="flex flex-col gap-2 md:gap-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-teal md:text-sm md:tracking-[0.24em]">
+              {eyebrow}
+            </p>
             <span
-              className="h-0.5 w-16 rounded-full bg-gradient-to-r from-accent-tealDark via-accent-teal to-teal-300"
+              className="h-0.5 w-12 rounded-full bg-gradient-to-r from-accent-tealDark via-accent-teal to-teal-300 md:w-16"
               aria-hidden
             />
           </div>
-          <h1 className="mt-8 text-[2.125rem] font-extrabold leading-[1.12] tracking-[-0.025em] text-body sm:text-5xl sm:leading-[1.1] md:mt-10 md:text-[2.75rem] md:leading-[1.08] lg:text-6xl lg:leading-[1.05] xl:text-[3.5rem] xl:leading-[1.03]">
+          <h1
+            className={
+              isCompact
+                ? "mt-5 text-2xl font-bold leading-tight tracking-tight text-body sm:text-3xl md:mt-6 md:text-[2rem] md:leading-snug"
+                : "mt-8 text-[2.125rem] font-extrabold leading-[1.12] tracking-[-0.025em] text-body sm:text-5xl sm:leading-[1.1] md:mt-10 md:text-[2.75rem] md:leading-[1.08] lg:text-6xl lg:leading-[1.05] xl:text-[3.5rem] xl:leading-[1.03]"
+            }
+          >
             {title}
           </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-[1.7] text-slate-600 sm:text-xl sm:leading-[1.65] md:mt-10 lg:mt-12 lg:max-w-3xl lg:text-xl lg:leading-[1.7] xl:text-2xl xl:leading-[1.65]">
+          <p
+            className={
+              isCompact
+                ? "mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 md:mt-4 md:text-base md:leading-relaxed"
+                : "mt-8 max-w-2xl text-lg leading-[1.7] text-slate-600 sm:text-xl sm:leading-[1.65] md:mt-10 lg:mt-12 lg:max-w-3xl lg:text-xl lg:leading-[1.7] xl:text-2xl xl:leading-[1.65]"
+            }
+          >
             {subtitle}
           </p>
-          <div className="mt-12 flex flex-wrap gap-4 sm:gap-5 md:mt-14 lg:mt-16">
+          <div
+            className={
+              isCompact
+                ? "mt-6 flex flex-wrap gap-3 md:mt-8"
+                : "mt-12 flex flex-wrap gap-4 sm:gap-5 md:mt-14 lg:mt-16"
+            }
+          >
             {primaryCta ? (
               <Button href={primaryCta.href} variant="primary">
                 {primaryCta.label}
@@ -74,6 +140,22 @@ export function HeroSection({ title, subtitle, primaryCta, secondaryCta }: HeroS
               </Button>
             ) : null}
           </div>
+          </div>
+          {showMedia && media ? (
+            <div className="relative mt-10 w-full max-lg:mx-auto max-lg:max-w-lg lg:mt-0">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_24px_60px_-28px_rgba(15,23,42,0.28)] ring-1 ring-slate-200/90">
+                <Image
+                  src={media.src}
+                  alt={media.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) min(100vw, 32rem), 40vw"
+                  priority
+                  unoptimized={mediaUnoptimized}
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

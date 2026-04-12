@@ -18,18 +18,18 @@ export function StrengthsSection({ eyebrow, title, items }: StrengthsSectionProp
         <SectionHeader eyebrow={eyebrow} title={title} center />
 
         <div
-          className="mx-auto mt-10 max-w-5xl lg:mt-12"
+          className="mx-auto mt-12 max-w-5xl lg:mt-16"
           role="list"
           aria-label={title}
         >
-          <div className="grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2 md:gap-y-11 lg:gap-x-14">
+          <div className="grid grid-cols-1 gap-x-14 gap-y-12 md:grid-cols-2 md:gap-y-16 lg:gap-x-20">
             {items.map((item, index) => {
               const num = String(index + 1).padStart(2, "0");
               return (
                 <div
                   key={item.title}
                   role="listitem"
-                  className="group relative isolate"
+                  className="group relative isolate pb-4 md:pb-6"
                 >
                   {/* Soft background numerals — single flat tone, no shapes; stays behind copy */}
                   <span

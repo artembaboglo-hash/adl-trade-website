@@ -76,8 +76,9 @@ export function Header({ locale }: { locale: Locale }) {
                   key={item.href}
                   href={withLocalePath(locale, item.href)}
                   className={cn(
-                    "group relative inline-flex items-center justify-center px-0.5 py-4 text-[0.9375rem] font-medium tracking-[0.01em] transition-colors duration-300 ease-out",
+                    "group relative inline-flex items-center justify-center rounded-md px-0.5 py-4 text-[0.9375rem] font-medium tracking-[0.01em] transition-colors duration-300 ease-out",
                     "text-slate-600 hover:text-primary",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-teal/35 focus-visible:ring-offset-2",
                     active && "text-primary"
                   )}
                   aria-current={active ? "page" : undefined}
@@ -153,6 +154,7 @@ export function Header({ locale }: { locale: Locale }) {
                     onClick={() => setIsMenuOpen(false)}
                     className={cn(
                       "rounded-lg border-b border-transparent px-3 py-3.5 text-sm font-medium tracking-wide transition-colors duration-200",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-teal/35 focus-visible:ring-offset-2",
                       isActive
                         ? "border-accent-teal bg-slate-50 text-primary"
                         : "text-slate-700 hover:border-accent-teal/40 hover:bg-slate-50/80 hover:text-primary"

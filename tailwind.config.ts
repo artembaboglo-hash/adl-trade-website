@@ -38,6 +38,24 @@ const config: Config = {
       },
       transitionDuration: {
         DEFAULT: "220ms"
+      },
+      keyframes: {
+        "partner-marquee": {
+          from: { transform: "translate3d(0, 0, 0)" },
+          to: { transform: "translate3d(-50%, 0, 0)" }
+        },
+        /** Hero ambient orb — opacity only (no transform conflicts with layout). */
+        "hero-ambient-pulse": {
+          "0%, 100%": { opacity: "0.88" },
+          "50%": { opacity: "1" }
+        }
+      },
+      animation: {
+        "partner-marquee": "partner-marquee 48s linear infinite",
+        "partner-marquee-slow": "partner-marquee 62s linear infinite",
+        "partner-marquee-rev": "partner-marquee 48s linear infinite reverse",
+        "partner-marquee-rev-slow": "partner-marquee 66s linear infinite reverse",
+        "hero-ambient-pulse": "hero-ambient-pulse 24s ease-in-out infinite"
       }
     }
   },

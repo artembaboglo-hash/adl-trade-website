@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { isValidLocale, withLocalePath } from "@/lib/i18n";
+import { resolveLocale, withLocalePath } from "@/lib/i18n";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
-  if (!isValidLocale(locale)) return {};
+  const { locale: raw } = await params;
+  const locale = resolveLocale(raw);
+  if (!locale) return {};
   return {
     title: locale === "ro" ? "Multumim" : locale === "ru" ? "Spasibo" : "Thank You",
     description:
@@ -13,13 +14,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         ? "Pagina de confirmare dupa trimiterea formularului."
         : locale === "ru"
           ? "Stranitsa podtverzhdeniya posle otpravki formy."
-          : "Thank-you confirmation page after form submission."
+          : "Thank - you confirmation page after form submission."
   };
 }
 
 export default async function ThankYouPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  if (!isValidLocale(locale)) notFound();
+  const { locale: raw } = await params;
+  const locale = resolveLocale(raw);
+  if (!locale) notFound();
   return (
     <section className="section-space">
       <div className="container-main max-w-2xl text-center">

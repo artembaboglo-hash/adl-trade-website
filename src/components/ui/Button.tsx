@@ -6,6 +6,8 @@ type ButtonProps = {
   children: React.ReactNode;
   variant?: "primary" | "outline" | "ghost" | "outlineLight" | "outlineMuted" | "accent";
   className?: string;
+  type?: "button" | "submit";
+  onClick?: () => void;
 };
 
 const baseClass =
@@ -25,7 +27,7 @@ const variants = {
     "bg-gradient-to-r from-accent-tealDark to-accent-teal px-8 text-white shadow-md shadow-accent-teal/25 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent-teal/35"
 };
 
-export function Button({ href, children, variant = "primary", className }: ButtonProps) {
+export function Button({ href, children, variant = "primary", className, type = "button", onClick }: ButtonProps) {
   if (href) {
     return (
       <Link href={href} className={cn(baseClass, variants[variant], className)}>
@@ -33,5 +35,9 @@ export function Button({ href, children, variant = "primary", className }: Butto
       </Link>
     );
   }
-  return <button className={cn(baseClass, variants[variant], className)}>{children}</button>;
+  return (
+    <button type={type} onClick={onClick} className={cn(baseClass, variants[variant], className)}>
+      {children}
+    </button>
+  );
 }

@@ -27,7 +27,7 @@ export const supplierPartners: SupplierPartner[] = [
     name: "Nordic Vita",
     country: "Poland",
     category: "Vitamins & Supplements",
-    description: "Science-backed wellness products for pharmacy and retail channels.",
+    description: "Science - backed wellness products for pharmacy and retail channels.",
     logo: "/logos/nordic-vita.svg",
     featured: true,
     active: true
@@ -37,7 +37,7 @@ export const supplierPartners: SupplierPartner[] = [
     name: "PureHome",
     country: "Romania",
     category: "Household",
-    description: "Household solutions tailored for high-volume retail formats.",
+    description: "Household solutions tailored for high - volume retail formats.",
     logo: "/logos/purehome.svg",
     active: true
   }

@@ -5,13 +5,25 @@ import { siteConfig } from "@/data/site";
 import { AmbientBackdrop } from "@/components/layout/AmbientBackdrop";
 import { cn } from "@/lib/utils";
 
+function safeMetadataBase(): URL {
+  /** Keep a concrete URL in dev: omitting metadataBase caused intermittent 500s on some routes (Next metadata resolution). */
+  if (process.env.NODE_ENV === "development") {
+    return new URL("http://localhost:3000");
+  }
+  try {
+    return new URL(siteConfig.url);
+  } catch {
+    return new URL("http://localhost:3000");
+  }
+}
+
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
   display: "swap"
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: safeMetadataBase(),
   title: {
     default: "ADL Trade | Corporate Distribution Partner",
     template: "%s | ADL Trade"

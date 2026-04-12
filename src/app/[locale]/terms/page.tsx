@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { isValidLocale } from "@/lib/i18n";
+import { resolveLocale } from "@/lib/i18n";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
-  if (!isValidLocale(locale)) return {};
+  const { locale: raw } = await params;
+  const locale = resolveLocale(raw);
+  if (!locale) return {};
   return {
     title: locale === "ro" ? "Termeni / Nota Legala" : locale === "ru" ? "Usloviya / Pravovaya Informatsiya" : "Terms / Legal Notice",
     description:
@@ -18,8 +19,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export default async function TermsPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  if (!isValidLocale(locale)) notFound();
+  const { locale: raw } = await params;
+  const locale = resolveLocale(raw);
+  if (!locale) notFound();
   return (
     <section className="section-space">
       <div className="container-main max-w-4xl">

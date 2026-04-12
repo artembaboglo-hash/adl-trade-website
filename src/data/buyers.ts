@@ -15,7 +15,7 @@ export const buyerPartners: BuyerPartner[] = [
     name: "Linella",
     type: "Retail Chain",
     category: "Modern Trade",
-    description: "Retail cooperation partner within Moldova.",
+    description: "Retail cooperation partner in Moldova and Romania.",
     logo: "/logos/linella.svg",
     featured: true,
     active: true

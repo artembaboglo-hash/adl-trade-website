@@ -11,6 +11,16 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 html,
 body {
   margin: 0;
@@ -19,6 +29,32 @@ body {
   background: var(--background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/**
+ * Very subtle film grain over the page (above AmbientBackdrop, below main z-10).
+ * Disabled when user prefers reduced motion / transparency.
+ */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  body::after {
+    opacity: 0.012;
+  }
 }
 
 a {
@@ -32,4 +68,14 @@ a {
 
 .section-space {
   @apply py-16 md:py-24 lg:py-28;
+}
+
+/** Tighter vertical rhythm (e.g. career page). */
+.section-space-dense {
+  @apply py-10 md:py-14 lg:py-16;
+}
+
+/** Optional top rule between major sections (home / long pages). */
+.section-rhythm-top {
+  @apply border-t border-slate-200/75;
 }

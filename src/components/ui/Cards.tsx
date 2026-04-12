@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 export function ValueCard({ title, description, icon }: { title: string; description: string; icon?: string }) {
   return (
-    <article className="rounded-2xl border border-slate-200/80 bg-white p-7 shadow-card transition-all duration-300 ease-out hover:-translate-y-1 hover:border-accent-teal/25 hover:shadow-md">
+    <article className="rounded-2xl border border-slate-200/80 bg-white p-7 shadow-card transition-all duration-300 ease-out hover:-translate-y-1 hover:border-accent-teal/25 hover:shadow-md active:translate-y-0 active:scale-[0.99]">
       {icon ? (
         <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-accent-teal/15 bg-gradient-to-br from-accent-teal/[0.07] to-cyan-50/50">
           <Image src={icon} alt="" aria-hidden="true" width={20} height={20} className="h-5 w-5" />
@@ -11,14 +11,6 @@ export function ValueCard({ title, description, icon }: { title: string; descrip
       ) : null}
       <h3 className="text-lg font-semibold leading-snug text-body">{title}</h3>
       <p className="mt-3 text-sm leading-relaxed text-slate-600">{description}</p>
-    </article>
-  );
-}
-
-export function CategoryCard({ title }: { title: string }) {
-  return (
-    <article className="rounded-2xl border border-slate-200/80 bg-gradient-to-br from-white to-mono-50/80 p-6 text-sm font-medium leading-snug text-slate-700 shadow-sm transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-accent-teal/30 hover:text-accent-teal hover:shadow-card">
-      {title}
     </article>
   );
 }
