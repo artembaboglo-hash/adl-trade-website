@@ -9,4 +9,4 @@ process.env.NODE_ENV = process.env.NODE_ENV || "production";
 const path = require("path");
 process.chdir(path.join(__dirname, ".next/standalone"));
 
-require("./.next/standalone/server.js");
+require("./server.js");
