@@ -14,8 +14,11 @@ function isLocalHost(host: string) {
   );
 }
 
-/** What the edge/proxy says about the original client↔edge connection (Railway, CDNs, etc.). */
-function isPublicHttpRequest(request: NextRequest): boolean {
+/**
+ * Only treat as HTTP when the **edge** says so. Do not use `nextUrl.protocol` — behind Railway
+ * the link to Node is often `http:` even when the visitor used HTTPS, which caused bad redirects.
+ */
+function isEdgeSayingHttp(request: NextRequest): boolean {
   const xf = request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim().toLowerCase();
   if (xf === "https") return false;
   if (xf === "http") return true;
@@ -30,17 +33,23 @@ function isPublicHttpRequest(request: NextRequest): boolean {
 
   if (request.headers.get("x-forwarded-ssl") === "on") return false;
 
-  if (request.nextUrl.protocol === "https:") return false;
-  if (request.nextUrl.protocol === "http:") return true;
-
   return false;
+}
+
+/** Base URL for redirects so `Location` is never accidentally `http://` on production. */
+function redirectBaseUrl(request: NextRequest): string {
+  const host = request.headers.get("host") ?? "localhost";
+  if (process.env.NODE_ENV === "production" && !isLocalHost(host)) {
+    return `https://${host}`;
+  }
+  return `${request.nextUrl.protocol}//${host}`;
 }
 
 export function middleware(request: NextRequest) {
   try {
     const host = request.headers.get("host") ?? "";
-    /** Force HTTPS: Chrome shows «Не защищено» when the document URL is still `http://`. */
-    if (process.env.NODE_ENV === "production" && !isLocalHost(host) && isPublicHttpRequest(request)) {
+    /** Upgrade `http://` only when the edge reports plain HTTP (see `isEdgeSayingHttp`). */
+    if (process.env.NODE_ENV === "production" && !isLocalHost(host) && isEdgeSayingHttp(request)) {
       const url = request.nextUrl.clone();
       url.protocol = "https:";
       return NextResponse.redirect(url, 308);
@@ -61,7 +70,7 @@ export function middleware(request: NextRequest) {
     /** Always send `/` to the primary locale (ro). Cookie does not override the home URL. */
     if (pathname === "/") {
       const target = withLocalePath(defaultLocale, "/");
-      const url = new URL(`${target}${search}`, request.url);
+      const url = new URL(`${target}${search}`, redirectBaseUrl(request));
       return NextResponse.redirect(url);
     }
 
@@ -73,7 +82,7 @@ export function middleware(request: NextRequest) {
       if (rawSegment !== resolved) {
         const rest = segments.slice(1).join("/");
         const path = rest ? `/${resolved}/${rest}` : `/${resolved}`;
-        const url = new URL(`${path}${search}`, request.url);
+        const url = new URL(`${path}${search}`, redirectBaseUrl(request));
         return NextResponse.redirect(url);
       }
       const response = NextResponse.next();
@@ -84,7 +93,7 @@ export function middleware(request: NextRequest) {
     const cookieLocale = request.cookies.get(localeCookieName)?.value;
     const locale = cookieLocale ? resolveLocale(cookieLocale) ?? defaultLocale : defaultLocale;
     const target = withLocalePath(locale, pathname);
-    const url = new URL(`${target}${search}`, request.url);
+    const url = new URL(`${target}${search}`, redirectBaseUrl(request));
     return NextResponse.redirect(url);
   } catch (cause) {
     console.error("[middleware]", cause);
