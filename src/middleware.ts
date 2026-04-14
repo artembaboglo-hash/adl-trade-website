@@ -39,10 +39,9 @@ export function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
+    /** Always send `/` to the primary locale (ro). Cookie does not override the home URL. */
     if (pathname === "/") {
-      const cookieLocale = request.cookies.get(localeCookieName)?.value;
-      const locale = cookieLocale ? resolveLocale(cookieLocale) ?? defaultLocale : defaultLocale;
-      const target = withLocalePath(locale, "/");
+      const target = withLocalePath(defaultLocale, "/");
       const url = new URL(`${target}${search}`, request.url);
       return NextResponse.redirect(url);
     }
