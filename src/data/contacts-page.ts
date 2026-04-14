@@ -26,13 +26,13 @@ export type ContactsPageCopy = {
 export const contactsPageByLocale: Record<Locale, ContactsPageCopy> = {
   ru: {
     metaDescription:
-      "Контакты ADL Trade: офисы в Молдове и Румынии, телефоны и email по направлениям. Тестовые адреса — замените на рабочие.",
+      "Контакты ADL Trade: офисы в Молдове и Румынии, телефоны и email по направлениям.",
     heroEyebrow: "Контакты",
     heroTitle: "Свяжитесь с ADL Trade",
     heroSubtitle: "Выберите удобный канал или напишите через форму — ответит соответствующая команда.",
     officesEyebrow: "Локации",
     officesSectionTitle: "Наши офисы",
-    officesMapLabel: "Тестовая точка на карте — замените embed при смене адреса.",
+    officesMapLabel: "Адреса офисов на карте OpenStreetMap.",
     moldovaOfficeTitle: "Офис в Молдове",
     romaniaOfficeTitle: "Офис в Румынии",
     labelEmail: "Email",
@@ -51,13 +51,13 @@ export const contactsPageByLocale: Record<Locale, ContactsPageCopy> = {
   },
   ro: {
     metaDescription:
-      "Contacte ADL Trade: birouri în Moldova și România, telefoane și e-mail pe direcții. Adrese de test — înlocuiți cu cele reale.",
+      "Contacte ADL Trade: birouri în Moldova și România, telefoane și e-mail pe direcții.",
     heroEyebrow: "Contacte",
     heroTitle: "Contactați ADL Trade",
     heroSubtitle: "Alegeți canalul potrivit sau scrieți prin formular — vă răspunde echipa corespunzătoare.",
     officesEyebrow: "Locații",
     officesSectionTitle: "Birourile noastre",
-    officesMapLabel: "Punct de test pe hartă — actualizați embed-ul la schimbarea adresei.",
+    officesMapLabel: "Locațiile birourilor pe hartă (OpenStreetMap).",
     moldovaOfficeTitle: "Biroul din Moldova",
     romaniaOfficeTitle: "Biroul din România",
     labelEmail: "Email",
@@ -76,13 +76,13 @@ export const contactsPageByLocale: Record<Locale, ContactsPageCopy> = {
   },
   en: {
     metaDescription:
-      "Contact ADL Trade: offices in Moldova and Romania, phones and emails by topic. Test addresses — replace with live details.",
+      "Contact ADL Trade: offices in Moldova and Romania, phones and emails by topic.",
     heroEyebrow: "Contacts",
     heroTitle: "Contact ADL Trade",
     heroSubtitle: "Pick the channel that fits, or use the form and the right team will respond.",
     officesEyebrow: "Locations",
     officesSectionTitle: "Our offices",
-    officesMapLabel: "Test map pin — replace the embed when the address changes.",
+    officesMapLabel: "Office locations on the map (OpenStreetMap).",
     moldovaOfficeTitle: "Moldova office",
     romaniaOfficeTitle: "Romania office",
     labelEmail: "Email",

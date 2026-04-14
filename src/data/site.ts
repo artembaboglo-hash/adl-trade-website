@@ -1,11 +1,11 @@
 export type SiteOffice = {
   id: "moldova" | "romania";
-  /** Office-specific inbox (test placeholders — replace in production). */
+  /** Office-specific contact email shown next to this location. */
   email: string;
   phone: string;
   /** Physical address lines for display */
   addressLines: string[];
-  /** OpenStreetMap embed URL (test — replace with Google embed or precise OSM bbox when ready). */
+  /** OpenStreetMap embed URL (bbox + marker near the office). */
   mapEmbedUrl: string;
 };
 
@@ -20,27 +20,27 @@ export const siteConfig = {
     offices: [
       {
         id: "moldova" as const,
-        email: "office.md@test.adltrade.com",
+        email: "office.md@adltrade.com",
         phone: "+373 22 101 010",
         addressLines: [
-          "Str. Exemplu 10, of. 201 (test)",
-          "MD-2001 Chișinău",
-          "Republica Moldova"
+          "Blvd. Grigore Vieru 22/1",
+          "Chișinău, MD-2005",
+          "Republic of Moldova"
         ],
         mapEmbedUrl:
-          "https://www.openstreetmap.org/export/embed.html?bbox=28.822%2C46.998%2C28.892%2C47.028&layer=mapnik&marker=47.0132%2C28.8573"
+          "https://www.openstreetmap.org/export/embed.html?bbox=28.8435%2C47.0317%2C28.8453%2C47.0328&layer=mapnik&marker=47.03232%2C28.84440"
       },
       {
         id: "romania" as const,
-        email: "office.ro@test.adltrade.com",
+        email: "office.ro@adltrade.com",
         phone: "+40 21 202 0202",
         addressLines: [
-          "Str. Exemplu 25, et. 3 (test)",
-          "Sector 1, 010101 București",
-          "România"
+          "Strada Vulcan Județul, Nr. 52-54, Etaj 1",
+          "București, Sectorul 3",
+          "Romania"
         ],
         mapEmbedUrl:
-          "https://www.openstreetmap.org/export/embed.html?bbox=26.08%2C44.42%2C26.12%2C44.455&layer=mapnik&marker=44.437%2C26.097"
+          "https://www.openstreetmap.org/export/embed.html?bbox=26.130%2C44.417%2C26.143%2C44.428&layer=mapnik&marker=44.4225%2C26.1362"
       }
     ] satisfies SiteOffice[]
   },
