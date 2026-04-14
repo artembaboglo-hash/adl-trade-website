@@ -14,17 +14,36 @@ function isLocalHost(host: string) {
   );
 }
 
+/** What the edge/proxy says about the original client↔edge connection (Railway, CDNs, etc.). */
+function isPublicHttpRequest(request: NextRequest): boolean {
+  const xf = request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim().toLowerCase();
+  if (xf === "https") return false;
+  if (xf === "http") return true;
+
+  const forwarded = request.headers.get("forwarded");
+  if (forwarded) {
+    const m = forwarded.match(/proto=(https?)/i);
+    const p = m?.[1]?.toLowerCase();
+    if (p === "https") return false;
+    if (p === "http") return true;
+  }
+
+  if (request.headers.get("x-forwarded-ssl") === "on") return false;
+
+  if (request.nextUrl.protocol === "https:") return false;
+  if (request.nextUrl.protocol === "http:") return true;
+
+  return false;
+}
+
 export function middleware(request: NextRequest) {
   try {
     const host = request.headers.get("host") ?? "";
-    /** Railway / reverse proxies terminate TLS; upgrade plain HTTP via X-Forwarded-Proto. */
-    if (process.env.NODE_ENV === "production" && !isLocalHost(host)) {
-      const proto = request.headers.get("x-forwarded-proto");
-      if (proto === "http") {
-        const url = request.nextUrl.clone();
-        url.protocol = "https:";
-        return NextResponse.redirect(url, 308);
-      }
+    /** Force HTTPS: Chrome shows «Не защищено» when the document URL is still `http://`. */
+    if (process.env.NODE_ENV === "production" && !isLocalHost(host) && isPublicHttpRequest(request)) {
+      const url = request.nextUrl.clone();
+      url.protocol = "https:";
+      return NextResponse.redirect(url, 308);
     }
 
     const { pathname, search } = request.nextUrl;
