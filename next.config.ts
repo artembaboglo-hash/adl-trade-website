@@ -28,7 +28,12 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [],
     /** Allow `quality` values used by `next/image` (default is 75; see `NEXT_PHOTO_IMAGE_QUALITY`). Required for Next.js 16+. */
-    qualities: [75, 92]
+    qualities: [75, 92],
+    /**
+     * Avoid `/_next/image` 400s on Railway/Docker standalone (local `public/` paths + optimizer).
+     * Files are served as static assets from `/photos/*` etc.; `sharp` stays available if you re-enable later.
+     */
+    unoptimized: true
   },
   async headers() {
     if (process.env.NODE_ENV !== "production") {
