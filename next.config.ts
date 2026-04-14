@@ -21,6 +21,22 @@ const nextConfig: NextConfig = {
     remotePatterns: [],
     /** Allow `quality` values used by `next/image` (default is 75; see `NEXT_PHOTO_IMAGE_QUALITY`). Required for Next.js 16+. */
     qualities: [75, 92]
+  },
+  async headers() {
+    if (process.env.NODE_ENV !== "production") {
+      return [];
+    }
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=31536000; includeSubDomains"
+          }
+        ]
+      }
+    ];
   }
 };
 

@@ -43,7 +43,7 @@ async function main() {
     if (await portFree(p)) {
       const displayHost = HOST === "0.0.0.0" ? "localhost" : HOST;
       console.log(
-        "\n  ▶ ADL Trade dev — open in browser:\n  ▶ http://%s:%s/  (redirects to /ru)\n  ▶ http://%s:%s/ru\n  ▶ Tip: if styles are missing, try DEV_HOST=127.0.0.1 npm run dev or npm run dev:loopback\n",
+        "\n  ▶ ADL Trade dev — open in browser:\n  ▶ http://%s:%s/  (redirects to /ro)\n  ▶ http://%s:%s/ro\n  ▶ Tip: if styles are missing, try DEV_HOST=127.0.0.1 npm run dev or npm run dev:loopback\n",
         displayHost,
         p,
         displayHost,

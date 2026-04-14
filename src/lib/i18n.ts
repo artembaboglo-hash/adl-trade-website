@@ -1,6 +1,6 @@
-export const locales = ["en", "ro", "ru"] as const;
+export const locales = ["ro", "en", "ru"] as const;
 export type Locale = (typeof locales)[number];
-export const defaultLocale: Locale = "ru";
+export const defaultLocale: Locale = "ro";
 export const localeCookieName = "NEXT_LOCALE";
 
 /** Returns canonical `en` | `ro` | `ru` regardless of input casing. */

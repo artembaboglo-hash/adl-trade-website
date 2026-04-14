@@ -2,10 +2,10 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollToTopButton } from "@/components/layout/ScrollToTopButton";
-import { resolveLocale } from "@/lib/i18n";
+import { locales, resolveLocale } from "@/lib/i18n";
 
 export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "ro" }, { locale: "ru" }];
+  return locales.map((locale) => ({ locale }));
 }
 
 export default async function LocaleLayout({

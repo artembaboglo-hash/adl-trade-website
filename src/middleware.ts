@@ -6,8 +6,27 @@ import { defaultLocale, localeCookieName, resolveLocale, withLocalePath } from "
 const STATIC_EXT =
   /\.(?:ico|png|jpe?g|gif|webp|svg|avif|woff2?|ttf|eot|otf|pdf|txt|xml|json|webmanifest|map|mp4|webm|mp3|zip)$/i;
 
+function isLocalHost(host: string) {
+  return (
+    host === "localhost" ||
+    host.startsWith("localhost:") ||
+    host.startsWith("127.0.0.1")
+  );
+}
+
 export function middleware(request: NextRequest) {
   try {
+    const host = request.headers.get("host") ?? "";
+    /** Railway / reverse proxies terminate TLS; upgrade plain HTTP via X-Forwarded-Proto. */
+    if (process.env.NODE_ENV === "production" && !isLocalHost(host)) {
+      const proto = request.headers.get("x-forwarded-proto");
+      if (proto === "http") {
+        const url = request.nextUrl.clone();
+        url.protocol = "https:";
+        return NextResponse.redirect(url, 308);
+      }
+    }
+
     const { pathname, search } = request.nextUrl;
 
     /** Never locale-prefix Next internals, devtools, or static assets (CSS/JS/fonts). */

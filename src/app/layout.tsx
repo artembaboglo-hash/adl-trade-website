@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="ro">
       <body className={cn(inter.className, "relative min-h-screen text-body")}>
         <AmbientBackdrop />
         <div className="relative z-10">{children}</div>

@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 export type LanguageCode = "en" | "ro" | "ru";
 
 const languages: { code: LanguageCode; short: string; name: string }[] = [
-  { code: "en", short: "EN", name: "English" },
   { code: "ro", short: "RO", name: "Română" },
+  { code: "en", short: "EN", name: "English" },
   { code: "ru", short: "RU", name: "Русский" }
 ];
 
@@ -19,7 +19,7 @@ type LanguageSwitcherProps = {
   theme?: "light" | "dark";
 };
 
-export function LanguageSwitcher({ initialLanguage = "en", onSelect, className, fullWidth }: LanguageSwitcherProps) {
+export function LanguageSwitcher({ initialLanguage = "ro", onSelect, className, fullWidth }: LanguageSwitcherProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<LanguageCode>(initialLanguage);
   const wrapperRef = useRef<HTMLDivElement>(null);
