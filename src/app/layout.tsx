@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/data/site";
 import { AmbientBackdrop } from "@/components/layout/AmbientBackdrop";
+import { ForceHttps } from "@/components/layout/ForceHttps";
 import { cn } from "@/lib/utils";
 
 function safeMetadataBase(): URL {
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="ro">
       <body className={cn(inter.className, "relative min-h-screen text-body")}>
+        {process.env.NODE_ENV === "production" ? <ForceHttps /> : null}
         <AmbientBackdrop />
         <div className="relative z-10">{children}</div>
       </body>
