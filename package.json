@@ -33,6 +33,7 @@
     "start": "next start",
     "lint": "next lint",
     "verify": "npm run lint && npm run build",
+    "favicon": "node scripts/generate-favicon.cjs",
     "doctor": "node scripts/doctor.cjs",
     "reinstall": "rm -rf node_modules && npm install"
   },

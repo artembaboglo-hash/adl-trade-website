@@ -43,7 +43,7 @@ type HomeCopy = {
 const homeCopy: Record<Locale, HomeCopy> = {
   en: {
     meta: {
-      title: "Distribution and market entry in Moldova and Romania",
+      title: "Distribution partner for Moldova and Romania",
       description:
         "ADL Trade — distribution, import, and market-entry partner in Moldova and Romania. Structured cooperation for suppliers and buyers."
     },
@@ -117,7 +117,7 @@ const homeCopy: Record<Locale, HomeCopy> = {
   },
   ro: {
     meta: {
-      title: "Distribuție și intrare pe piață în Moldova și România",
+      title: "Partener de distribuție pentru Moldova și România",
       description:
         "ADL Trade — partener pentru distribuție, import și intrare pe piață în Moldova și România. Cooperare structurată pentru furnizori și cumpărători."
     },
@@ -191,7 +191,7 @@ const homeCopy: Record<Locale, HomeCopy> = {
   },
   ru: {
     meta: {
-      title: "Дистрибуция и выход на рынки Молдовы и Румынии",
+      title: "Партнёр по дистрибуции в Молдове и Румынии",
       description:
         "ADL Trade — партнёр по дистрибуции, импорту и выходу на рынки Молдовы и Румынии. Сотрудничество для поставщиков и покупателей."
     },
