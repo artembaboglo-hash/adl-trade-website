@@ -11,12 +11,20 @@ const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const useTracingRoot = process.env.NEXT_DISABLE_OUTPUT_FILE_TRACING_ROOT !== "1";
 
+/** Docker/Railway: set `NEXT_OUTPUT_FILE_TRACING_ROOT=/app` in Dockerfile so standalone never embeds a developer machine path. */
+const outputFileTracingRoot =
+  process.env.NEXT_OUTPUT_FILE_TRACING_ROOT !== undefined
+    ? path.resolve(process.env.NEXT_OUTPUT_FILE_TRACING_ROOT)
+    : useTracingRoot
+      ? projectRoot
+      : undefined;
+
 /** Avoid overriding webpack `cache` in dev: `cache: { type: "memory" }` correlated with RSC errors (`TypeError: a[d] is not a function`). For ENOENT on `.pack.gz`, run `npm run clean:cache` or `npm run clean`. */
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   /** Trace minimal server bundle for Docker / Railway (`node .next/standalone/server.js`). */
   output: "standalone",
-  ...(useTracingRoot ? { outputFileTracingRoot: projectRoot } : {}),
+  ...(outputFileTracingRoot ? { outputFileTracingRoot } : {}),
   images: {
     remotePatterns: [],
     /** Allow `quality` values used by `next/image` (default is 75; see `NEXT_PHOTO_IMAGE_QUALITY`). Required for Next.js 16+. */

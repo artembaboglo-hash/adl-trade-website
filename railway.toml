@@ -4,5 +4,5 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-# Matches Dockerfile CMD; clear any old "npm run start" in the Railway service settings.
-startCommand = "node server.js"
+# Matches Dockerfile CMD; clear any custom override in the Railway service settings if it conflicts.
+startCommand = "node .next/standalone/server.js"

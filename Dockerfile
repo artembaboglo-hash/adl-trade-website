@@ -17,6 +17,8 @@ COPY . .
 # prebuild-clean removes `.next`; on Docker overlay/BuildKit that hits EBUSY on `.next/cache`.
 # Image builds are always from a clean tree — skip (see scripts/prebuild-clean.cjs).
 ENV SKIP_PREBUILD_CLEAN=1
+# Stable workspace root inside the image (see `next.config.ts` — avoids broken paths on Railway).
+ENV NEXT_OUTPUT_FILE_TRACING_ROOT=/app
 RUN npm run build
 
 FROM base AS runner
