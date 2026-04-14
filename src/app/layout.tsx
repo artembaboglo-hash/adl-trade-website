@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { siteConfig } from "@/data/site";
 import { AmbientBackdrop } from "@/components/layout/AmbientBackdrop";
+import { SiteJsonLd } from "@/components/seo/SiteJsonLd";
 import { cn } from "@/lib/utils";
 
 function safeMetadataBase(): URL {
@@ -30,11 +31,28 @@ export const metadata: Metadata = {
     template: "%s | ADL Trade"
   },
   description: siteConfig.description,
+  applicationName: "ADL Trade",
+  referrer: "origin-when-cross-origin",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true }
+  },
+  verification: {
+    google: "0AIW1YLunsceECqlFIREBlDocA7yvfC0DQatC2Id8wE"
+  },
   openGraph: {
     title: "ADL Trade",
     description: siteConfig.description,
     url: siteConfig.url,
-    type: "website"
+    type: "website",
+    siteName: siteConfig.companyName,
+    locale: "ro_RO"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ADL Trade",
+    description: siteConfig.description
   }
 };
 
@@ -46,6 +64,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="ro">
       <body className={cn(inter.className, "relative min-h-screen text-body")}>
+        <SiteJsonLd />
         {process.env.NODE_ENV === "production" ? (
           <Script id="force-https" strategy="beforeInteractive">
             {PRODUCTION_FORCE_HTTPS_SCRIPT}

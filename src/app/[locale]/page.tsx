@@ -16,6 +16,7 @@ import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { getAboutContent } from "@/data/about";
 import { getHomePhotos } from "@/data/home-photos";
 import { resolveLocale, type Locale, withLocalePath } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/seo-metadata";
 
 type HomeCopy = {
   meta: { title: string; description: string };
@@ -272,7 +273,10 @@ export async function generateMetadata({
   const locale = resolveLocale(raw);
   if (!locale) return {};
   const m = homeCopy[locale].meta;
-  return { title: m.title, description: m.description };
+  return pageMetadata(locale, "/", {
+    title: m.title,
+    description: m.description
+  });
 }
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {

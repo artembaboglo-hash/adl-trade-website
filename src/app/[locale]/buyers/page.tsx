@@ -14,16 +14,17 @@ import { WidePhotoBanner } from "@/components/sections/WidePhotoBanner";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { getHomePhotos } from "@/data/home-photos";
 import { contactCtaLabel, resolveLocale, withLocalePath } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/seo-metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const locale = resolveLocale(raw);
   if (!locale) return {};
   const copy = buyerPageByLocale[locale];
-  return {
+  return pageMetadata(locale, "/buyers", {
     title: locale === "ro" ? "Cumpărători" : locale === "ru" ? "Покупателям" : "Buyers",
     description: copy.metaDescription
-  };
+  });
 }
 
 export default async function BuyersPage({ params }: { params: Promise<{ locale: string }> }) {

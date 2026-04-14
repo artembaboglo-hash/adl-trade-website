@@ -8,6 +8,7 @@ import { contactsPageByLocale } from "@/data/contacts-page";
 import { getHomePhotos } from "@/data/home-photos";
 import { siteConfig } from "@/data/site";
 import { resolveLocale } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/seo-metadata";
 
 function officeTitle(officeId: "moldova" | "romania", t: (typeof contactsPageByLocale)["ru"]) {
   return officeId === "moldova" ? t.moldovaOfficeTitle : t.romaniaOfficeTitle;
@@ -17,10 +18,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale: raw } = await params;
   const locale = resolveLocale(raw);
   if (!locale) return {};
-  return {
+  const t = contactsPageByLocale[locale];
+  return pageMetadata(locale, "/contacts", {
     title: locale === "ro" ? "Contacte" : locale === "ru" ? "Контакты" : "Contacts",
-    description: contactsPageByLocale[locale].metaDescription
-  };
+    description: t.metaDescription
+  });
 }
 
 export default async function ContactsPage({ params }: { params: Promise<{ locale: string }> }) {

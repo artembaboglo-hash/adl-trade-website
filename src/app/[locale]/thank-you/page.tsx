@@ -2,20 +2,24 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { resolveLocale, withLocalePath } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/seo-metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const locale = resolveLocale(raw);
   if (!locale) return {};
-  return {
-    title: locale === "ro" ? "Multumim" : locale === "ru" ? "Spasibo" : "Thank You",
-    description:
-      locale === "ro"
-        ? "Pagina de confirmare dupa trimiterea formularului."
-        : locale === "ru"
-          ? "Stranitsa podtverzhdeniya posle otpravki formy."
-          : "Thank - you confirmation page after form submission."
-  };
+  const title = locale === "ro" ? "Mulțumim" : locale === "ru" ? "Спасибо" : "Thank you";
+  const description =
+    locale === "ro"
+      ? "Pagina de confirmare după trimiterea formularului."
+      : locale === "ru"
+        ? "Страница подтверждения после отправки формы."
+        : "Confirmation page after form submission.";
+  return pageMetadata(locale, "/thank-you", {
+    title,
+    description,
+    robots: { index: false, follow: true }
+  });
 }
 
 export default async function ThankYouPage({ params }: { params: Promise<{ locale: string }> }) {

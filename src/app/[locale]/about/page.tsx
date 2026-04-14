@@ -22,6 +22,7 @@ import { partnersMarqueeCopy } from "@/data/partners-marquee";
 import { buyerChannelLogos, supplierBrandLogos } from "@/data/partner-logos";
 import { dictionaries } from "@/data/dictionaries";
 import { contactCtaLabel, resolveLocale, withLocalePath } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/seo-metadata";
 
 const SECTION_SCROLL = "scroll-mt-[148px]";
 
@@ -30,10 +31,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale = resolveLocale(raw);
   if (!locale) return {};
   const { meta } = getAboutContent(locale);
-  return {
+  return pageMetadata(locale, "/about", {
     title: meta.title,
     description: meta.description
-  };
+  });
 }
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {

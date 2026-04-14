@@ -14,16 +14,17 @@ import { WidePhotoBanner } from "@/components/sections/WidePhotoBanner";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { getHomePhotos } from "@/data/home-photos";
 import { contactCtaLabel, resolveLocale, withLocalePath } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/seo-metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: raw } = await params;
   const locale = resolveLocale(raw);
   if (!locale) return {};
   const copy = supplierPageByLocale[locale];
-  return {
+  return pageMetadata(locale, "/suppliers", {
     title: locale === "ro" ? "Furnizori" : locale === "ru" ? "Поставщикам" : "Suppliers",
     description: copy.metaDescription
-  };
+  });
 }
 
 export default async function SuppliersPage({ params }: { params: Promise<{ locale: string }> }) {

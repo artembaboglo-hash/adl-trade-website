@@ -10,6 +10,7 @@ import { careerPageByLocale } from "@/data/career-page";
 import { getHomePhotos } from "@/data/home-photos";
 import { careerVacanciesByLocale } from "@/data/career-vacancies";
 import { contactCtaLabel, resolveLocale, withLocalePath } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/seo-metadata";
 
 const VACANCIES_SECTION_ID = "career-vacancies";
 const APPLICATION_SECTION_ID = "career-application";
@@ -19,10 +20,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale = resolveLocale(raw);
   if (!locale) return {};
   const copy = careerPageByLocale[locale];
-  return {
+  return pageMetadata(locale, "/career", {
     title: locale === "ro" ? "Carieră" : locale === "ru" ? "Карьера" : "Career",
     description: copy.metaDescription
-  };
+  });
 }
 
 export default async function CareerPage({ params }: { params: Promise<{ locale: string }> }) {
