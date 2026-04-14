@@ -96,7 +96,12 @@ export function Header({ locale }: { locale: Locale }) {
             })}
           </nav>
 
-          <div className="flex shrink-0 items-center gap-5 md:gap-6">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3 md:gap-6">
+            <LanguageSwitcher
+              initialLanguage={locale}
+              onSelect={handleLanguageSelect}
+              className="inline-flex md:hidden"
+            />
             <LanguageSwitcher initialLanguage={locale} onSelect={handleLanguageSelect} className="hidden md:inline-flex" />
             <button
               type="button"
@@ -133,7 +138,7 @@ export function Header({ locale }: { locale: Locale }) {
         {isMenuOpen ? (
           <>
             <div className="mb-8 flex items-center justify-between">
-              <BrandLogo className="h-[2.2rem]" />
+              <BrandLogo className="h-[2.35rem]" />
               <button
                 type="button"
                 className="rounded-lg border border-slate-200/90 px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors duration-200 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-teal/25"
@@ -166,12 +171,6 @@ export function Header({ locale }: { locale: Locale }) {
                 );
               })}
             </nav>
-            <LanguageSwitcher
-              initialLanguage={locale}
-              onSelect={handleLanguageSelect}
-              fullWidth
-              className="mt-8 w-full max-w-none"
-            />
           </>
         ) : null}
       </div>

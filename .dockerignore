@@ -1,0 +1,18 @@
+# deps & build output (reinstalled / rebuilt in image)
+node_modules
+.next
+out
+
+# git & IDE
+.git
+.gitignore
+.cursor
+*.md
+
+# env & local
+.env
+.env.*
+
+# misc
+npm-debug.log*
+.DS_Store

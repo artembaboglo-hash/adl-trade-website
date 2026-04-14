@@ -57,7 +57,7 @@ export function CTASection({
           <div className="relative pl-6 md:pl-8">
             <h2
               className={cn(
-                "max-w-3xl text-3xl font-bold leading-tight tracking-tight md:text-4xl",
+                "max-w-3xl text-balance text-3xl font-bold leading-tight tracking-tight md:text-4xl",
                 isEmphasis ? "text-white" : "text-body"
               )}
             >
@@ -65,7 +65,7 @@ export function CTASection({
             </h2>
             <p
               className={cn(
-                "mt-5 max-w-2xl text-base leading-relaxed md:text-lg",
+                "mt-5 max-w-2xl text-balance text-base leading-relaxed md:text-lg",
                 isEmphasis ? "text-slate-300" : "text-slate-600"
               )}
             >

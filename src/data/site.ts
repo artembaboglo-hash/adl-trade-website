@@ -12,15 +12,15 @@ export type SiteOffice = {
 export const siteConfig = {
   companyName: "ADL Trade",
   description:
-    "ADL Trade is a trusted distributor, importer, and market - entry partner in Moldova and Romania.",
-  url: "https://adltrade.md",
+    "ADL Trade is a trusted distributor, importer, and market-entry partner in Moldova and Romania.",
+  url: "https://adltrade.com",
   contact: {
     /** General mailbox shown in footer; replace or split per market if needed. */
-    email: "info@adltrade.md",
+    email: "info@adltrade.com",
     offices: [
       {
         id: "moldova" as const,
-        email: "office.md@test.adltrade.md",
+        email: "office.md@test.adltrade.com",
         phone: "+373 22 101 010",
         addressLines: [
           "Str. Exemplu 10, of. 201 (test)",
@@ -32,7 +32,7 @@ export const siteConfig = {
       },
       {
         id: "romania" as const,
-        email: "office.ro@test.adltrade.ro",
+        email: "office.ro@test.adltrade.com",
         phone: "+40 21 202 0202",
         addressLines: [
           "Str. Exemplu 25, et. 3 (test)",

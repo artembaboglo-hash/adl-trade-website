@@ -1,5 +1,7 @@
 import Image from "next/image";
+import { NEXT_PHOTO_IMAGE_QUALITY } from "@/lib/next-image-defaults";
 import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
 type SplitAudienceSectionProps = {
   suppliers: { title: string; description: string; cta: string; href: string };
@@ -57,9 +59,9 @@ export function SplitAudienceSection({ suppliers, buyers, suppliersMedia, buyers
 
   return (
     <section className="section-space bg-white">
-      <div className="container-main grid gap-10 md:grid-cols-2 md:gap-12 lg:gap-14">
+      <div className="container-main grid gap-10 md:grid-cols-2 md:items-stretch md:gap-12 lg:gap-14">
         <article
-          className={`${cardBase} border-slate-200/80 bg-gradient-to-br from-white via-mono-50/50 to-teal-50/20 hover:border-accent-teal/30`}
+          className={`${cardBase} flex h-full min-h-0 flex-col border-slate-200/80 bg-gradient-to-br from-white via-mono-50/50 to-teal-50/20 hover:border-accent-teal/30`}
         >
           {suppliersMedia ? (
             <div className="relative aspect-[16/10] w-full border-b border-slate-200/60">
@@ -67,13 +69,14 @@ export function SplitAudienceSection({ suppliers, buyers, suppliersMedia, buyers
                 src={suppliersMedia.src}
                 alt={suppliersMedia.alt}
                 fill
-                className="object-cover"
+                quality={NEXT_PHOTO_IMAGE_QUALITY}
+                className="object-cover object-[40%_center]"
                 sizes="(max-width: 768px) 100vw, 50vw"
                 unoptimized={suppliersMedia.src.endsWith(".svg")}
               />
             </div>
           ) : null}
-          <div className={cardPad}>
+          <div className={cn(cardPad, "flex min-h-0 flex-1 flex-col")}>
           <span
             className="mb-6 block h-1 w-14 rounded-full bg-gradient-to-r from-accent-tealDark to-accent-teal"
             aria-hidden
@@ -85,20 +88,26 @@ export function SplitAudienceSection({ suppliers, buyers, suppliersMedia, buyers
             >
               <SuppliersIcon className="h-6 w-6" />
             </div>
-            <h3 className="min-w-0 flex-1 text-xl font-semibold leading-snug tracking-tight text-body md:text-2xl">
+            <h3 className="min-w-0 flex-1 text-balance text-xl font-semibold leading-snug tracking-tight text-body md:text-2xl">
               {suppliers.title}
             </h3>
           </div>
-          <p className="mt-5 max-w-prose text-sm leading-relaxed text-slate-600 md:text-[0.9375rem] md:leading-relaxed">
+          <p className="mt-5 max-w-prose text-balance text-sm leading-relaxed text-slate-600 md:flex-1 md:min-h-0 md:text-[0.9375rem] md:leading-relaxed">
             {suppliers.description}
           </p>
-          <Button href={suppliers.href} variant="primary" className="mt-10">
-            {suppliers.cta}
-          </Button>
+          <div className="mt-10 md:mt-auto md:pt-8">
+            <Button
+              href={suppliers.href}
+              variant="primary"
+              className="w-fit md:px-4 md:py-2.5 md:text-[13px] md:tracking-normal"
+            >
+              {suppliers.cta}
+            </Button>
+          </div>
           </div>
         </article>
         <article
-          className={`${cardBase} border-slate-200/80 bg-gradient-to-br from-white via-slate-50/70 to-white hover:border-accent-teal/25`}
+          className={`${cardBase} flex h-full min-h-0 flex-col border-slate-200/80 bg-gradient-to-br from-white via-slate-50/70 to-white hover:border-accent-teal/25`}
         >
           {buyersMedia ? (
             <div className="relative aspect-[16/10] w-full border-b border-slate-200/60">
@@ -106,13 +115,14 @@ export function SplitAudienceSection({ suppliers, buyers, suppliersMedia, buyers
                 src={buyersMedia.src}
                 alt={buyersMedia.alt}
                 fill
-                className="object-cover"
+                quality={NEXT_PHOTO_IMAGE_QUALITY}
+                className="object-cover object-[50%_42%]"
                 sizes="(max-width: 768px) 100vw, 50vw"
                 unoptimized={buyersMedia.src.endsWith(".svg")}
               />
             </div>
           ) : null}
-          <div className={cardPad}>
+          <div className={cn(cardPad, "flex min-h-0 flex-1 flex-col")}>
           <span className="mb-6 block h-1 w-14 rounded-full bg-slate-200" aria-hidden />
           <div className="flex gap-4 sm:gap-5">
             <div
@@ -121,16 +131,22 @@ export function SplitAudienceSection({ suppliers, buyers, suppliersMedia, buyers
             >
               <BuyersIcon className="h-6 w-6" />
             </div>
-            <h3 className="min-w-0 flex-1 text-xl font-semibold leading-snug tracking-tight text-body md:text-2xl">
+            <h3 className="min-w-0 flex-1 text-balance text-xl font-semibold leading-snug tracking-tight text-body md:text-2xl">
               {buyers.title}
             </h3>
           </div>
-          <p className="mt-5 max-w-prose text-sm leading-relaxed text-slate-600 md:text-[0.9375rem] md:leading-relaxed">
+          <p className="mt-5 max-w-prose text-balance text-sm leading-relaxed text-slate-600 md:flex-1 md:min-h-0 md:text-[0.9375rem] md:leading-relaxed">
             {buyers.description}
           </p>
-          <Button href={buyers.href} variant="outline" className="mt-10">
-            {buyers.cta}
-          </Button>
+          <div className="mt-10 md:mt-auto md:pt-8">
+            <Button
+              href={buyers.href}
+              variant="outline"
+              className="w-fit md:px-4 md:py-2.5 md:text-[13px] md:tracking-normal"
+            >
+              {buyers.cta}
+            </Button>
+          </div>
           </div>
         </article>
       </div>

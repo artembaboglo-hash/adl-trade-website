@@ -22,14 +22,14 @@ export function StrengthsSection({ eyebrow, title, items }: StrengthsSectionProp
           role="list"
           aria-label={title}
         >
-          <div className="grid grid-cols-1 gap-x-14 gap-y-12 md:grid-cols-2 md:gap-y-16 lg:gap-x-20">
+          <div className="grid grid-cols-1 gap-x-14 gap-y-12 md:grid-cols-2 md:items-stretch md:gap-y-16 lg:gap-x-20">
             {items.map((item, index) => {
               const num = String(index + 1).padStart(2, "0");
               return (
                 <div
                   key={item.title}
                   role="listitem"
-                  className="group relative isolate pb-4 md:pb-6"
+                  className="group relative isolate flex h-full min-h-0 flex-col pb-4 md:pb-6"
                 >
                   {/* Soft background numerals — single flat tone, no shapes; stays behind copy */}
                   <span
@@ -40,11 +40,11 @@ export function StrengthsSection({ eyebrow, title, items }: StrengthsSectionProp
                   </span>
 
                   {/* Foreground copy — always above the numeral */}
-                  <div className="relative z-10 max-w-lg pt-3 sm:pt-3.5">
-                    <h3 className="text-lg font-bold leading-snug tracking-[-0.02em] text-body sm:text-xl">
+                  <div className="relative z-10 flex max-w-lg flex-1 flex-col pt-3 sm:pt-3.5">
+                    <h3 className="text-balance text-lg font-bold leading-snug tracking-[-0.02em] text-body sm:text-xl">
                       {item.title}
                     </h3>
-                    <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-slate-600 sm:mt-2 sm:text-base">
+                    <p className="mt-1.5 text-balance text-[0.9375rem] leading-relaxed text-slate-600 sm:mt-2 sm:text-base">
                       {item.description}
                     </p>
                   </div>

@@ -58,7 +58,8 @@ export const buyerPageByLocale: Record<Locale, BuyerPageCopy> = {
       }
     ],
     categoriesTitle: "Категории, с которыми работаем",
-    categoriesFootnote: "Работаем только в перечисленных категориях — другими направлениями не занимаемся.",
+    categoriesFootnote:
+      "Ключевые категории нашего портфеля, в которых мы усиливаем присутствие брендов и дистрибуцию.",
     partnersTitle: "Партнёры-покупатели, с которыми мы работаем",
     partnersDescription: "",
     formTitle: "Форма для покупателей",
@@ -105,7 +106,8 @@ export const buyerPageByLocale: Record<Locale, BuyerPageCopy> = {
       }
     ],
     categoriesTitle: "Categorii cu care lucrăm",
-    categoriesFootnote: "Lucrăm doar în categoriile listate — nu activăm în alte direcții.",
+    categoriesFootnote:
+      "Categoriile cheie din portofoliul nostru, în care întărim prezența brandurilor și distribuția.",
     partnersTitle: "Parteneri-cumpărători cu care colaborăm",
     partnersDescription: "",
     formTitle: "Formular cumpărător",
@@ -150,7 +152,8 @@ export const buyerPageByLocale: Record<Locale, BuyerPageCopy> = {
       }
     ],
     categoriesTitle: "Categories we work with",
-    categoriesFootnote: "We only work in the categories listed here — we do not cover other areas.",
+    categoriesFootnote:
+      "Key categories in our portfolio where we strengthen brand presence and distribution.",
     partnersTitle: "Buyer partners we work with",
     partnersDescription: "",
     formTitle: "Buyer inquiry form",

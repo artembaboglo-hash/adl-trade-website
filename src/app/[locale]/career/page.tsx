@@ -7,6 +7,7 @@ import { VacancyCard } from "@/components/career/VacancyCard";
 import { CollapsibleInquiryForm } from "@/components/forms/CollapsibleInquiryForm";
 import { CTASection } from "@/components/sections/CTASection";
 import { careerPageByLocale } from "@/data/career-page";
+import { getHomePhotos } from "@/data/home-photos";
 import { careerVacanciesByLocale } from "@/data/career-vacancies";
 import { contactCtaLabel, resolveLocale, withLocalePath } from "@/lib/i18n";
 
@@ -29,6 +30,7 @@ export default async function CareerPage({ params }: { params: Promise<{ locale:
   const locale = resolveLocale(raw);
   if (!locale) notFound();
   const t = careerPageByLocale[locale];
+  const photos = getHomePhotos(locale);
   const vacancies = careerVacanciesByLocale[locale];
   const openCount = vacancies.length;
 
@@ -36,7 +38,13 @@ export default async function CareerPage({ params }: { params: Promise<{ locale:
 
   return (
     <>
-      <HeroSection title={t.heroTitle} subtitle={t.heroSubtitle} eyebrow={t.heroEyebrow} size="compact" />
+      <HeroSection
+        title={t.heroTitle}
+        subtitle={t.heroSubtitle}
+        eyebrow={t.heroEyebrow}
+        size="compact"
+        media={photos.careerHero}
+      />
 
       <section
         id={VACANCIES_SECTION_ID}

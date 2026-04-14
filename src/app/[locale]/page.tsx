@@ -42,12 +42,12 @@ type HomeCopy = {
 const homeCopy: Record<Locale, HomeCopy> = {
   en: {
     meta: {
-      title: "Home",
+      title: "Distribution and market entry in Moldova and Romania",
       description:
-        "ADL Trade - distribution, import, and market - entry partner in Moldova and Romania. Structured cooperation for suppliers and buyers."
+        "ADL Trade — distribution, import, and market-entry partner in Moldova and Romania. Structured cooperation for suppliers and buyers."
     },
     hero: {
-      title: "A Reliable Partner for Distribution and Market - Entry in Moldova and Romania",
+      title: "A Reliable Partner for Distribution and Market Entry in Moldova and Romania",
       subtitle:
         "We connect brands, manufacturers, and retail partners through structured import, nationwide distribution across Moldova and Romania, and strong local execution.",
       ctaSuppliers: "For Suppliers",
@@ -57,7 +57,7 @@ const homeCopy: Record<Locale, HomeCopy> = {
       eyebrow: "Company",
       title: "Market access built on reliability, transparency, and execution",
       description:
-        "ADL Trade operates as a long - term partner: clear processes, accountable operations, and category - focused teams that support sustainable growth.",
+        "ADL Trade operates as a long-term partner: clear processes, accountable operations, and category-focused teams that support sustainable growth.",
       aboutLink: "Learn more about ADL Trade →"
     },
     advantages: {
@@ -75,11 +75,11 @@ const homeCopy: Record<Locale, HomeCopy> = {
         },
         {
           title: "Field teams and retail audit",
-          description: "Monitoring availability, on - shelf execution, and product condition."
+          description: "Monitoring availability, on-shelf execution, and product condition."
         },
         {
           title: "Sales support and shelf presence",
-          description: "Merchandising, visibility, and focus on sell - through."
+          description: "Merchandising, visibility, and focus on sell-through."
         }
       ]
     },
@@ -87,7 +87,7 @@ const homeCopy: Record<Locale, HomeCopy> = {
       suppliers: {
         title: "For suppliers & brand owners",
         description:
-          "Enter Moldova and Romania with a clear route - to - market, disciplined listing, and operational support you can audit.",
+          "Enter Moldova and Romania with a clear route-to-market, disciplined listing, and operational support you can audit.",
         cta: "Supplier solutions"
       },
       buyers: {
@@ -116,9 +116,9 @@ const homeCopy: Record<Locale, HomeCopy> = {
   },
   ro: {
     meta: {
-      title: "Acasă",
+      title: "Distribuție și intrare pe piață în Moldova și România",
       description:
-        "ADL Trade - partener pentru distribuție, import și intrare pe piață în Moldova și România. Cooperare structurată pentru furnizori și cumpărători."
+        "ADL Trade — partener pentru distribuție, import și intrare pe piață în Moldova și România. Cooperare structurată pentru furnizori și cumpărători."
     },
     hero: {
       title: "Partener de încredere pentru distribuție și intrare pe piață în Moldova și România",
@@ -190,14 +190,14 @@ const homeCopy: Record<Locale, HomeCopy> = {
   },
   ru: {
     meta: {
-      title: "Главная",
+      title: "Дистрибуция и выход на рынки Молдовы и Румынии",
       description:
-        "ADL Trade - партнёр по дистрибуции, импорту и выходу на рынки Молдовы и Румынии. Структурированное сотрудничество для поставщиков и покупателей."
+        "ADL Trade — партнёр по дистрибуции, импорту и выходу на рынки Молдовы и Румынии. Сотрудничество для поставщиков и покупателей."
     },
     hero: {
       title: "Надёжный партнёр по дистрибуции и выходу на рынки Молдовы и Румынии",
       subtitle:
-        "Связываем бренды, производителей и розницу через структурированный импорт, национальную дистрибуцию в Молдове и Румынии и сильную локальную реализацию.",
+        "Связываем бренды, производителей и розницу через импорт, национальную дистрибуцию в Молдове и Румынии и сильную локальную реализацию.",
       ctaSuppliers: "Для поставщиков",
       ctaBuyers: "Для покупателей"
     },
@@ -205,7 +205,7 @@ const homeCopy: Record<Locale, HomeCopy> = {
       eyebrow: "Компания",
       title: "Доступ к рынку на основе надёжности, прозрачности и исполнения",
       description:
-        "ADL Trade управляет полным циклом вывода продукции на рынок - от импорта и логистики до размещения на полке и роста продаж.",
+        "ADL Trade работает как долгосрочный партнёр: прозрачные процессы, ответственные операции и команды, сфокусированные на категориях, для устойчивого роста. Импорт, логистика, полка и развитие продаж — в рамках одной дисциплины исполнения.",
       aboutLink: "Подробнее о ADL Trade →"
     },
     advantages: {
@@ -234,7 +234,7 @@ const homeCopy: Record<Locale, HomeCopy> = {
       suppliers: {
         title: "Для поставщиков и владельцев брендов",
         description:
-          "Выход на рынки Молдовы и Румынии с понятным route - to - market, дисциплиной листинга и проверяемой операционной поддержкой.",
+          "Выход на рынки Молдовы и Румынии с понятной моделью route-to-market, дисциплиной листинга и проверяемой операционной поддержкой.",
         cta: "Решения для поставщиков"
       },
       buyers: {

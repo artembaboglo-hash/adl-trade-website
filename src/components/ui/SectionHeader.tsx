@@ -49,14 +49,14 @@ export function SectionHeader({
       ) : null}
       <h2
         id={headingId}
-        className="text-3xl font-bold leading-[1.2] tracking-tight text-body md:text-[2.125rem] md:leading-snug"
+        className="text-balance text-3xl font-bold leading-[1.2] tracking-tight text-body md:text-[2.125rem] md:leading-snug"
       >
         {title}
       </h2>
       {description ? (
         <p
           className={cn(
-            "mt-5 text-base leading-relaxed text-slate-600 md:text-[1.0625rem] md:leading-relaxed",
+            "mt-5 text-balance text-base leading-relaxed text-slate-600 md:text-[1.0625rem] md:leading-relaxed",
             descriptionClassName ?? "max-w-[65ch]"
           )}
         >

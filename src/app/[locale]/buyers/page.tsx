@@ -10,6 +10,9 @@ import { buyerPageByLocale } from "@/data/buyers-page";
 import { categorySectionByLocale } from "@/data/category-portfolio";
 import { CollapsibleInquiryForm } from "@/components/forms/CollapsibleInquiryForm";
 import { CTASection } from "@/components/sections/CTASection";
+import { WidePhotoBanner } from "@/components/sections/WidePhotoBanner";
+import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { getHomePhotos } from "@/data/home-photos";
 import { contactCtaLabel, resolveLocale, withLocalePath } from "@/lib/i18n";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -29,59 +32,74 @@ export default async function BuyersPage({ params }: { params: Promise<{ locale:
   if (!locale) notFound();
   const t = buyerPageByLocale[locale];
   const categoryItems = categorySectionByLocale[locale].items;
+  const photos = getHomePhotos(locale);
   return (
     <>
-      <HeroSection title={t.heroTitle} subtitle={t.heroSubtitle} eyebrow={t.heroEyebrow} />
-      <section className="section-space">
-        <div className="container-main">
-          <SectionHeader eyebrow={t.valueEyebrow} title={t.valueTitle} eyebrowAccent="teal" />
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {t.valueCards.map((card) => (
-              <ValueCard key={card.title} title={card.title} description={card.description} />
-            ))}
+      <HeroSection
+        title={t.heroTitle}
+        subtitle={t.heroSubtitle}
+        eyebrow={t.heroEyebrow}
+        media={photos.splitBuyers}
+      />
+      <RevealOnScroll>
+        <section className="section-space">
+          <div className="container-main">
+            <SectionHeader eyebrow={t.valueEyebrow} title={t.valueTitle} eyebrowAccent="teal" />
+            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {t.valueCards.map((card) => (
+                <ValueCard key={card.title} title={card.title} description={card.description} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-      <section className="section-space bg-secondary">
-        <div className="container-main">
-          <SectionHeader title={t.categoriesTitle} description={t.categoriesFootnote} center />
-          <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-7">
-            {categoryItems.map((item) => (
-              <CategoryPortfolioCard key={item.id} item={item} />
-            ))}
+        </section>
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <section className="section-space bg-secondary">
+          <div className="container-main">
+            <SectionHeader title={t.categoriesTitle} description={t.categoriesFootnote} center />
+            <WidePhotoBanner media={photos.categories} className="mt-8 sm:mt-10" />
+            <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-7">
+              {categoryItems.map((item) => (
+                <CategoryPortfolioCard key={item.id} item={item} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-      <section className="section-space">
-        <div className="container-main">
-          <SectionHeader title={t.partnersTitle} description={t.partnersDescription || undefined} />
-          <PartnerLogoMarquee logos={buyerChannelLogos} variant="reverse" className="mt-8" />
-        </div>
-      </section>
-      <section className="section-space bg-secondary">
-        <div className="container-main">
-          <CollapsibleInquiryForm
-            expandLabel={t.formToggleExpand}
-            collapseLabel={t.formToggleCollapse}
-            title={t.formTitle}
-            intro={t.formIntro}
-            submitLabel={t.formSubmit}
-            showUploadPlaceholder
-            uploadLabel={t.uploadLabel}
-            uploadHint={t.uploadHint}
-            fields={[
-              { name: "companyName", label: locale === "ro" ? "Nume companie" : locale === "ru" ? "Название компании" : "Company name", required: true },
-              { name: "contactPerson", label: locale === "ro" ? "Persoană de contact" : locale === "ru" ? "Контактное лицо" : "Contact person", required: true },
-              { name: "position", label: locale === "ro" ? "Funcție" : locale === "ru" ? "Должность" : "Position" },
-              { name: "email", label: "Email", type: "email", required: true },
-              { name: "phone", label: locale === "ro" ? "Telefon" : locale === "ru" ? "Телефон" : "Phone", type: "tel", required: true },
-              { name: "businessType", label: locale === "ro" ? "Tip business" : locale === "ru" ? "Тип бизнеса" : "Business type", required: true },
-              { name: "categoryOfInterest", label: locale === "ro" ? "Categorie de interes" : locale === "ru" ? "Интересующая категория" : "Category of interest", required: true },
-              { name: "message", label: locale === "ro" ? "Mesaj" : locale === "ru" ? "Сообщение" : "Message", textarea: true, required: true }
-            ]}
-          />
-        </div>
-      </section>
+        </section>
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <section className="section-space">
+          <div className="container-main">
+            <SectionHeader title={t.partnersTitle} description={t.partnersDescription || undefined} />
+            <PartnerLogoMarquee logos={buyerChannelLogos} variant="reverse" className="mt-8" />
+          </div>
+        </section>
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <section className="section-space bg-secondary">
+          <div className="container-main">
+            <CollapsibleInquiryForm
+              expandLabel={t.formToggleExpand}
+              collapseLabel={t.formToggleCollapse}
+              title={t.formTitle}
+              intro={t.formIntro}
+              submitLabel={t.formSubmit}
+              showUploadPlaceholder
+              uploadLabel={t.uploadLabel}
+              uploadHint={t.uploadHint}
+              fields={[
+                { name: "companyName", label: locale === "ro" ? "Nume companie" : locale === "ru" ? "Название компании" : "Company name", required: true },
+                { name: "contactPerson", label: locale === "ro" ? "Persoană de contact" : locale === "ru" ? "Контактное лицо" : "Contact person", required: true },
+                { name: "position", label: locale === "ro" ? "Funcție" : locale === "ru" ? "Должность" : "Position" },
+                { name: "email", label: "Email", type: "email", required: true },
+                { name: "phone", label: locale === "ro" ? "Telefon" : locale === "ru" ? "Телефон" : "Phone", type: "tel", required: true },
+                { name: "businessType", label: locale === "ro" ? "Tip business" : locale === "ru" ? "Тип бизнеса" : "Business type", required: true },
+                { name: "categoryOfInterest", label: locale === "ro" ? "Categorie de interes" : locale === "ru" ? "Интересующая категория" : "Category of interest", required: true },
+                { name: "message", label: locale === "ro" ? "Mesaj" : locale === "ru" ? "Сообщение" : "Message", textarea: true, required: true }
+              ]}
+            />
+          </div>
+        </section>
+      </RevealOnScroll>
       <CTASection
         variant="emphasis"
         title={t.ctaTitle}

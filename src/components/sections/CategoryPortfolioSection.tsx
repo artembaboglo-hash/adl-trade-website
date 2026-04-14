@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { NEXT_PHOTO_IMAGE_QUALITY } from "@/lib/next-image-defaults";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { cn } from "@/lib/utils";
 import type {
@@ -113,8 +114,8 @@ export function CategoryPortfolioCard({ item }: { item: CategoryPortfolioItem })
       >
         <CategoryIcon id={item.id} />
       </div>
-      <h3 className="text-lg font-semibold leading-snug tracking-tight text-body">{item.title}</h3>
-      <p className="mt-3 text-sm leading-relaxed text-slate-600 line-clamp-3 md:mt-3.5 md:line-clamp-none md:text-[0.9375rem] md:leading-relaxed">
+      <h3 className="text-balance text-lg font-semibold leading-snug tracking-tight text-body">{item.title}</h3>
+      <p className="mt-3 text-balance text-sm leading-relaxed text-slate-600 line-clamp-3 md:mt-3.5 md:line-clamp-none md:text-[0.9375rem] md:leading-relaxed">
         {item.description}
       </p>
     </article>
@@ -152,6 +153,7 @@ export function CategoryPortfolioSection({ eyebrow, title, lead, items, bannerMe
                 src={bannerMedia.src}
                 alt={bannerMedia.alt}
                 fill
+                quality={NEXT_PHOTO_IMAGE_QUALITY}
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 72rem"
                 unoptimized={bannerUnoptimized}

@@ -56,7 +56,8 @@ export const supplierPageByLocale: Record<Locale, SupplierPageCopy> = {
       }
     ],
     categoriesTitle: "Категории, с которыми работаем",
-    categoriesFootnote: "Работаем только в перечисленных категориях — другими направлениями не занимаемся.",
+    categoriesFootnote:
+      "Ключевые категории нашего портфеля, в которых мы усиливаем присутствие брендов и дистрибуцию.",
     partnersTitle: "Текущие партнёры-производители, которые нам доверяют",
     partnersDescription: "",
     formTitle: "Форма для поставщиков",
@@ -101,7 +102,8 @@ export const supplierPageByLocale: Record<Locale, SupplierPageCopy> = {
       }
     ],
     categoriesTitle: "Categorii cu care lucrăm",
-    categoriesFootnote: "Lucrăm doar în categoriile listate — nu activăm în alte direcții.",
+    categoriesFootnote:
+      "Categoriile cheie din portofoliul nostru, în care întărim prezența brandurilor și distribuția.",
     partnersTitle: "Parteneri-producători actuali care au încredere în noi",
     partnersDescription: "",
     formTitle: "Formular furnizor",
@@ -145,7 +147,8 @@ export const supplierPageByLocale: Record<Locale, SupplierPageCopy> = {
       }
     ],
     categoriesTitle: "Categories we work with",
-    categoriesFootnote: "We only work in the categories listed here — we do not cover other areas.",
+    categoriesFootnote:
+      "Key categories in our portfolio where we strengthen brand presence and distribution.",
     partnersTitle: "Current manufacturer partners who trust us",
     partnersDescription: "",
     formTitle: "Supplier inquiry form",

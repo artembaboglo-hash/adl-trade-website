@@ -45,7 +45,7 @@ export const ro: AboutContentSource = {
     {
       title: "Viziune",
       description:
-        "Să fim cel mai de încredere partener de distribuție și intrare pe piață din Moldova și România: prima opțiune pentru mărcile care vor claritate, acoperire și execuție consecventă."
+        "Nu alergăm după cel mai mic preț cu orice preț—construim o ofertă unde calitatea produsului și nivelul de preț protejează marja și loialitatea în același timp."
     },
     {
       title: "Valori",

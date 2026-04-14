@@ -8,6 +8,7 @@ import {
 } from "@/components/about/AboutPillarCard";
 import { AboutPageNav } from "@/components/about/AboutPageNav";
 import { DistributionFlowDiagram } from "@/components/about/DistributionFlowDiagram";
+import { WidePhotoBanner } from "@/components/sections/WidePhotoBanner";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { StatsBlock } from "@/components/ui/Stats";
@@ -15,6 +16,8 @@ import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { CTASection } from "@/components/sections/CTASection";
 import { PartnerMarqueeSection } from "@/components/sections/PartnerMarqueeSection";
 import { getAboutContent } from "@/data/about";
+import { getAboutPhotos } from "@/data/about-photos";
+import { getHomePhotos } from "@/data/home-photos";
 import { partnersMarqueeCopy } from "@/data/partners-marquee";
 import { buyerChannelLogos, supplierBrandLogos } from "@/data/partner-logos";
 import { dictionaries } from "@/data/dictionaries";
@@ -39,6 +42,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   if (!locale) notFound();
 
   const c = getAboutContent(locale);
+  const photos = getHomePhotos(locale);
+  const aboutPhotos = getAboutPhotos(locale);
   const dict = dictionaries[locale];
   const partnersMarquee = partnersMarqueeCopy[locale];
   const contactsHref = withLocalePath(locale, "/contacts");
@@ -61,6 +66,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         subtitle={c.hero.subtitle}
         primaryCta={{ label: c.hero.primaryCta.label, href: contactsHref }}
         secondaryCta={{ label: c.hero.secondaryCta.label, href: suppliersHref }}
+        media={photos.hero}
       />
 
       <AboutPageNav items={aboutNavItems} ariaLabel={dict.ui.aboutNavAriaLabel} />
@@ -95,6 +101,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 </ul>
               </AboutAsidePanel>
             </div>
+            <WidePhotoBanner media={aboutPhotos.overviewBanner} className="mt-12 lg:mt-14" />
             <div className="mt-12 lg:mt-14">
               <DistributionFlowDiagram title={c.distributionFlow.title} steps={c.distributionFlow.steps} />
             </div>

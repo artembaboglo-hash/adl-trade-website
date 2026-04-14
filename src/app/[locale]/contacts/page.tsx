@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { InquiryForm } from "@/components/forms/InquiryForm";
 import { contactTopicChannels } from "@/data/contact-topics";
 import { contactsPageByLocale } from "@/data/contacts-page";
+import { getHomePhotos } from "@/data/home-photos";
 import { siteConfig } from "@/data/site";
 import { resolveLocale } from "@/lib/i18n";
 
@@ -27,10 +28,17 @@ export default async function ContactsPage({ params }: { params: Promise<{ local
   const locale = resolveLocale(raw);
   if (!locale) notFound();
   const t = contactsPageByLocale[locale];
+  const photos = getHomePhotos(locale);
 
   return (
     <>
-      <HeroSection title={t.heroTitle} subtitle={t.heroSubtitle} eyebrow={t.heroEyebrow} size="compact" />
+      <HeroSection
+        title={t.heroTitle}
+        subtitle={t.heroSubtitle}
+        eyebrow={t.heroEyebrow}
+        size="compact"
+        media={photos.contactsHero}
+      />
 
       <section className="relative overflow-hidden border-t border-slate-200/80 bg-secondary py-10 md:py-14">
         <div

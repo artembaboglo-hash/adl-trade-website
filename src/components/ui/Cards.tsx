@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { NEXT_PHOTO_IMAGE_QUALITY } from "@/lib/next-image-defaults";
 import { cn } from "@/lib/utils";
 
 export function ValueCard({ title, description, icon }: { title: string; description: string; icon?: string }) {
@@ -6,7 +7,15 @@ export function ValueCard({ title, description, icon }: { title: string; descrip
     <article className="rounded-2xl border border-slate-200/80 bg-white p-7 shadow-card transition-all duration-300 ease-out hover:-translate-y-1 hover:border-accent-teal/25 hover:shadow-md active:translate-y-0 active:scale-[0.99]">
       {icon ? (
         <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-accent-teal/15 bg-gradient-to-br from-accent-teal/[0.07] to-cyan-50/50">
-          <Image src={icon} alt="" aria-hidden="true" width={20} height={20} className="h-5 w-5" />
+          <Image
+            src={icon}
+            alt=""
+            aria-hidden="true"
+            width={20}
+            height={20}
+            quality={NEXT_PHOTO_IMAGE_QUALITY}
+            className="h-5 w-5"
+          />
         </div>
       ) : null}
       <h3 className="text-lg font-semibold leading-snug text-body">{title}</h3>
@@ -36,7 +45,14 @@ export function PartnerCard({ name, subtitle, description, logo, featured, websi
       <div className="mb-4 flex items-center justify-between gap-4">
         <div className="flex h-12 w-24 items-center justify-center rounded border border-primary/10 bg-primary/[0.04] px-2 text-xs font-semibold text-slate-500">
           {logo ? (
-            <Image src={logo} alt={`${name} logo`} width={88} height={28} className="h-7 w-auto object-contain" />
+            <Image
+              src={logo}
+              alt={`${name} logo`}
+              width={88}
+              height={28}
+              quality={NEXT_PHOTO_IMAGE_QUALITY}
+              className="h-7 w-auto object-contain"
+            />
           ) : (
             "Text"
           )}

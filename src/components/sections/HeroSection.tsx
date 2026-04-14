@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { NEXT_PHOTO_IMAGE_QUALITY } from "@/lib/next-image-defaults";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
@@ -25,7 +26,7 @@ export function HeroSection({
   media
 }: HeroSectionProps) {
   const isCompact = size === "compact";
-  const showMedia = Boolean(media) && !isCompact;
+  const showMedia = Boolean(media);
   const mediaUnoptimized = media?.src.endsWith(".svg") ?? false;
 
   return (
@@ -84,13 +85,17 @@ export function HeroSection({
       <div className="container-main relative z-10">
         <div
           className={cn(
-            showMedia && "grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(260px,42%)] lg:gap-12 xl:gap-14",
+            showMedia &&
+              (isCompact
+                ? "grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(17.25rem,19rem)] lg:gap-10 xl:gap-12"
+                : "grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(260px,42%)] lg:gap-12 xl:gap-14"),
             !showMedia && (isCompact ? "max-w-3xl" : "max-w-4xl")
           )}
         >
           <div
             className={cn(
-              showMedia && "min-w-0 max-w-4xl",
+              showMedia && isCompact && "min-w-0 max-w-2xl",
+              showMedia && !isCompact && "min-w-0 max-w-4xl",
               !showMedia && isCompact && "max-w-3xl",
               !showMedia && !isCompact && "max-w-4xl"
             )}
@@ -107,8 +112,8 @@ export function HeroSection({
           <h1
             className={
               isCompact
-                ? "mt-5 text-2xl font-bold leading-tight tracking-tight text-body sm:text-3xl md:mt-6 md:text-[2rem] md:leading-snug"
-                : "mt-8 text-[2.125rem] font-extrabold leading-[1.12] tracking-[-0.025em] text-body sm:text-5xl sm:leading-[1.1] md:mt-10 md:text-[2.75rem] md:leading-[1.08] lg:text-6xl lg:leading-[1.05] xl:text-[3.5rem] xl:leading-[1.03]"
+                ? "mt-5 text-balance text-2xl font-bold leading-tight tracking-tight text-body sm:text-3xl md:mt-6 md:text-[2rem] md:leading-snug"
+                : "mt-8 text-balance text-[2.125rem] font-extrabold leading-[1.12] tracking-[-0.025em] text-body sm:text-5xl sm:leading-[1.1] md:mt-10 md:text-[2.75rem] md:leading-[1.08] lg:text-6xl lg:leading-[1.05] xl:text-[3.5rem] xl:leading-[1.03]"
             }
           >
             {title}
@@ -117,7 +122,7 @@ export function HeroSection({
             className={
               isCompact
                 ? "mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 md:mt-4 md:text-base md:leading-relaxed"
-                : "mt-8 max-w-2xl text-lg leading-[1.7] text-slate-600 sm:text-xl sm:leading-[1.65] md:mt-10 lg:mt-12 lg:max-w-3xl lg:text-xl lg:leading-[1.7] xl:text-2xl xl:leading-[1.65]"
+                : "mt-8 max-w-2xl text-balance text-lg leading-[1.7] text-slate-600 sm:text-xl sm:leading-[1.65] md:mt-10 lg:mt-12 lg:max-w-3xl lg:text-xl lg:leading-[1.7] xl:text-2xl xl:leading-[1.65]"
             }
           >
             {subtitle}
@@ -142,14 +147,33 @@ export function HeroSection({
           </div>
           </div>
           {showMedia && media ? (
-            <div className="relative mt-10 w-full max-lg:mx-auto max-lg:max-w-lg lg:mt-0">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_24px_60px_-28px_rgba(15,23,42,0.28)] ring-1 ring-slate-200/90">
+            <div
+              className={cn(
+                "relative w-full max-lg:mx-auto lg:pt-1",
+                isCompact
+                  ? "mt-6 max-w-[min(100%,20rem)] lg:mt-0 lg:w-full lg:max-w-none lg:justify-self-end"
+                  : "mt-10 max-lg:max-w-lg lg:mt-0"
+              )}
+            >
+              <div
+                className={cn(
+                  "relative aspect-[4/3] w-full overflow-hidden rounded-2xl ring-1 ring-slate-200/90",
+                  isCompact
+                    ? "shadow-[0_16px_40px_-22px_rgba(15,23,42,0.22)]"
+                    : "shadow-[0_24px_60px_-28px_rgba(15,23,42,0.28)]"
+                )}
+              >
                 <Image
                   src={media.src}
                   alt={media.alt}
                   fill
+                  quality={NEXT_PHOTO_IMAGE_QUALITY}
                   className="object-cover"
-                  sizes="(max-width: 1024px) min(100vw, 32rem), 40vw"
+                  sizes={
+                    isCompact
+                      ? "(max-width: 1024px) min(100vw, 20rem), 18rem"
+                      : "(max-width: 1024px) min(100vw, 32rem), 40vw"
+                  }
                   priority
                   unoptimized={mediaUnoptimized}
                 />

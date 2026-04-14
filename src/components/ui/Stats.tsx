@@ -8,12 +8,12 @@ type StatsBlockProps = {
 
 export function StatsBlock({ items, elevated = false }: StatsBlockProps) {
   return (
-    <div className="grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-6">
+    <div className="grid grid-cols-2 items-stretch gap-5 md:grid-cols-4 md:gap-6">
       {items.map((item) => (
         <article
           key={item.label}
           className={cn(
-            "relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 text-center shadow-card transition-all duration-300 ease-out",
+            "relative flex min-h-[9.5rem] flex-col justify-center overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 text-center shadow-card transition-all duration-300 ease-out md:min-h-[10rem]",
             elevated && "hover:-translate-y-1",
             "hover:border-accent-teal/20 hover:shadow-md"
           )}
@@ -27,7 +27,9 @@ export function StatsBlock({ items, elevated = false }: StatsBlockProps) {
           <p className="bg-gradient-to-r from-accent-tealDark to-accent-teal bg-clip-text text-3xl font-extrabold tracking-tight text-transparent md:text-4xl">
             {item.value}
           </p>
-          <p className="mt-3 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-500">{item.label}</p>
+          <p className="mt-3 text-balance text-[11px] font-medium uppercase tracking-[0.18em] text-slate-500">
+            {item.label}
+          </p>
         </article>
       ))}
     </div>

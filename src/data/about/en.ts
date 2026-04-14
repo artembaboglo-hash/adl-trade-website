@@ -45,7 +45,7 @@ export const en: AboutContentSource = {
     {
       title: "Vision",
       description:
-        "To be the most trusted distribution and market - entry partner in Moldova and Romania: the first call for brands that want clarity, coverage, and consistent in - market execution."
+        "We don't chase the lowest price at any cost—we build an offer where product quality and price level protect both margin and loyalty."
     },
     {
       title: "Values",

@@ -81,7 +81,7 @@ export function Footer({ locale }: { locale: Locale }) {
             href={withLocalePath(locale, "/")}
             className="inline-block transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-teal/25 focus-visible:ring-offset-2"
           >
-            <BrandLogo className="h-[2.2rem] md:h-[2.475rem]" />
+            <BrandLogo className="h-[2.35rem] md:h-[2.725rem]" />
           </Link>
           <p className="mx-auto mt-3 max-w-prose text-sm leading-relaxed text-slate-600 lg:mx-0">
             {siteConfig.description}

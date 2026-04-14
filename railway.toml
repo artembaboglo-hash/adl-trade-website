@@ -1,0 +1,8 @@
+# https://docs.railway.com/reference/config-as-code
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+# Matches Dockerfile CMD; clear any old "npm run start" in the Railway service settings.
+startCommand = "node server.js"
