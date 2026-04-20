@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "empty_fields" }, { status: 400 });
     }
 
-    const transport = createInquiryTransport();
+    const transport = await createInquiryTransport();
     if (!transport) {
       console.error("[api/inquiry] Missing SMTP env (SMTP_HOST, SMTP_USER, SMTP_PASS)");
       return NextResponse.json({ error: "mail_not_configured" }, { status: 503 });
