@@ -21,6 +21,8 @@ export type ContactsPageCopy = {
   formTitle: string;
   formIntro: string;
   formSubmit: string;
+  uploadLabel: string;
+  uploadHint: string;
 };
 
 export const contactsPageByLocale: Record<Locale, ContactsPageCopy> = {
@@ -47,7 +49,10 @@ export const contactsPageByLocale: Record<Locale, ContactsPageCopy> = {
     },
     formTitle: "Форма обратной связи",
     formIntro: "Кратко опишите запрос; при желании укажите офис или тему.",
-    formSubmit: "Отправить сообщение"
+    formSubmit: "Отправить сообщение",
+    uploadLabel: "Вложения (по желанию)",
+    uploadHint:
+      "PDF, изображения, Office, ZIP — до 5 файлов, до ~5 МБ каждый (лимиты на сервере могут отличаться)."
   },
   ro: {
     metaDescription:
@@ -72,7 +77,10 @@ export const contactsPageByLocale: Record<Locale, ContactsPageCopy> = {
     },
     formTitle: "Formular de contact",
     formIntro: "Descrieți pe scurt; opțional, biroul sau tema.",
-    formSubmit: "Trimite mesajul"
+    formSubmit: "Trimite mesajul",
+    uploadLabel: "Atașamente (opțional)",
+    uploadHint:
+      "PDF, imagini, Office, ZIP — până la 5 fișiere, ~5 MB fiecare (limitele serverului pot varia)."
   },
   en: {
     metaDescription:
@@ -97,6 +105,9 @@ export const contactsPageByLocale: Record<Locale, ContactsPageCopy> = {
     },
     formTitle: "Contact form",
     formIntro: "Briefly describe your request; optionally note office or topic.",
-    formSubmit: "Send message"
+    formSubmit: "Send message",
+    uploadLabel: "Attachments (optional)",
+    uploadHint:
+      "PDF, images, Office documents, or ZIP — up to 5 files, about 5 MB each (server limits may vary)."
   }
 };

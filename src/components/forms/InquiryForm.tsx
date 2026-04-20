@@ -19,30 +19,54 @@ type Field = {
 
 const FORM_UI: Record<
   Locale,
-  { sending: string; success: string; network: string; server: string; rateLimit: string }
+  {
+    sending: string;
+    success: string;
+    network: string;
+    server: string;
+    rateLimit: string;
+    attachmentTooLarge: string;
+    attachmentsTooLarge: string;
+    tooManyAttachments: string;
+  }
 > = {
   en: {
     sending: "Sending…",
     success: "Thank you. Your request has been submitted successfully.",
     network: "Could not reach the server. Check your connection and try again.",
     server: "Something went wrong while sending. Please try again later or email us directly.",
-    rateLimit: "Too many requests. Please wait a few minutes and try again."
+    rateLimit: "Too many requests. Please wait a few minutes and try again.",
+    attachmentTooLarge: "One of the files is too large. Remove it or choose a smaller file and try again.",
+    attachmentsTooLarge: "The combined size of attachments is too large. Remove some files and try again.",
+    tooManyAttachments: "Too many files attached. Remove some files and try again."
   },
   ro: {
     sending: "Se trimite…",
     success: "Mulțumim. Solicitarea a fost trimisă cu succes.",
     network: "Nu s-a putut contacta serverul. Verificați conexiunea și încercați din nou.",
     server: "A apărut o eroare la trimitere. Încercați mai târziu sau scrieți-ne direct pe email.",
-    rateLimit: "Prea multe solicitări. Așteptați câteva minute și încercați din nou."
+    rateLimit: "Prea multe solicitări. Așteptați câteva minute și încercați din nou.",
+    attachmentTooLarge: "Un fișier este prea mare. Eliminați-l sau alegeți un fișier mai mic.",
+    attachmentsTooLarge: "Suma dimensiunilor fișierelor este prea mare. Eliminați câteva fișiere.",
+    tooManyAttachments: "Sunt prea multe fișiere atașate. Eliminați câteva și încercați din nou."
   },
   ru: {
     sending: "Отправка…",
     success: "Спасибо. Ваш запрос успешно отправлен.",
     network: "Не удалось связаться с сервером. Проверьте соединение и попробуйте снова.",
     server: "При отправке произошла ошибка. Попробуйте позже или напишите нам на почту.",
-    rateLimit: "Слишком много запросов. Подождите несколько минут и попробуйте снова."
+    rateLimit: "Слишком много запросов. Подождите несколько минут и попробуйте снова.",
+    attachmentTooLarge: "Один из файлов слишком большой. Удалите его или выберите файл меньшего размера.",
+    attachmentsTooLarge: "Суммарный размер вложений слишком большой. Удалите часть файлов.",
+    tooManyAttachments: "Слишком много вложений. Удалите часть файлов и попробуйте снова."
   }
 };
+
+function formatFileSize(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 
 function uiCopy(locale: string) {
   return FORM_UI[locale as Locale] ?? FORM_UI.en;
@@ -93,6 +117,7 @@ export function InquiryForm({
 }: InquiryFormProps) {
   const formId = useId();
   const trapRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const initial = useMemo(
     () =>
       fields.reduce<Record<string, string>>((acc, field) => {
@@ -107,6 +132,7 @@ export function InquiryForm({
   const [status, setStatus] = useState<"idle" | "success" | "error" | "network">("idle");
   const [submitting, setSubmitting] = useState(false);
   const [serverMessage, setServerMessage] = useState<string | null>(null);
+  const [fileListLabel, setFileListLabel] = useState<string | null>(null);
   const copy = uiCopy(locale);
 
   const onChange = (name: string, value: string) => {
@@ -138,15 +164,20 @@ export function InquiryForm({
     setSubmitting(true);
     setStatus("idle");
     try {
+      const fd = new FormData();
+      fd.append("source", formSource);
+      fd.append("locale", locale);
+      fd.append("hp", trapRef.current?.value ?? "");
+      fd.append("fields", JSON.stringify(data));
+      if (showUploadPlaceholder && fileInputRef.current?.files?.length) {
+        for (const f of Array.from(fileInputRef.current.files)) {
+          fd.append("attachments", f);
+        }
+      }
+
       const res = await fetch("/api/inquiry", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          source: formSource,
-          locale,
-          hp: trapRef.current?.value ?? "",
-          fields: data
-        })
+        body: fd
       });
 
       if (res.status === 429) {
@@ -162,13 +193,25 @@ export function InquiryForm({
       }
 
       if (!res.ok) {
+        let errCode: string | undefined;
+        try {
+          const j = (await res.json()) as { error?: string };
+          errCode = typeof j.error === "string" ? j.error : undefined;
+        } catch {
+          errCode = undefined;
+        }
         setStatus("error");
-        setServerMessage(copy.server);
+        if (errCode === "attachment_too_large") setServerMessage(copy.attachmentTooLarge);
+        else if (errCode === "attachments_too_large") setServerMessage(copy.attachmentsTooLarge);
+        else if (errCode === "too_many_attachments") setServerMessage(copy.tooManyAttachments);
+        else setServerMessage(copy.server);
         return;
       }
 
       setStatus("success");
       setData(initial);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      setFileListLabel(null);
     } catch {
       setStatus("network");
       setServerMessage(copy.network);
@@ -222,14 +265,36 @@ export function InquiryForm({
           <div className="md:col-span-2">
             <label className="block">
               <span className="mb-2 block text-sm font-medium text-slate-700">
-                {uploadLabel ?? "File upload (optional)"}
+                {uploadLabel ?? "Attachments (optional)"}
               </span>
-              <div
-                role="note"
-                className="rounded-md border border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-sm text-slate-500"
-              >
-                {uploadHint ?? "Upload integration placeholder (CV, portfolio, product sheet, etc.)"}
-              </div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                name="attachments"
+                multiple
+                className="block w-full max-w-lg cursor-pointer text-sm text-slate-700 file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-accent-teal/15 file:px-3 file:py-2 file:text-sm file:font-medium file:text-accent-tealDark hover:file:bg-accent-teal/25"
+                accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.png,.jpg,.jpeg,.webp,.zip,.7z"
+                onChange={() => {
+                  const el = fileInputRef.current;
+                  if (!el?.files?.length) {
+                    setFileListLabel(null);
+                    return;
+                  }
+                  setFileListLabel(
+                    Array.from(el.files)
+                      .map((f) => `${f.name} (${formatFileSize(f.size)})`)
+                      .join(", ")
+                  );
+                }}
+              />
+              {uploadHint ? (
+                <p className="mt-2 text-xs leading-relaxed text-slate-500">{uploadHint}</p>
+              ) : null}
+              {fileListLabel ? (
+                <p className="mt-2 text-xs text-slate-600" aria-live="polite">
+                  {fileListLabel}
+                </p>
+              ) : null}
             </label>
           </div>
         ) : null}

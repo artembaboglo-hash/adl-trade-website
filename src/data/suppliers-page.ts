@@ -68,7 +68,7 @@ export const supplierPageByLocale: Record<Locale, SupplierPageCopy> = {
     formSubmit: "Отправить запрос",
     uploadLabel: "Материалы к заявке (по желанию)",
     uploadHint:
-      "После подключения обмена файлами сюда можно будет прикрепить one-pager, каталог, сертификаты и другие документы.",
+      "One-pager, каталог, сертификаты — PDF, изображения, Office, ZIP. До 5 файлов, до ~5 МБ каждый.",
     ctaTitle: "Обсудим выход продукта или бренда на рынки Молдовы и Румынии",
     ctaDescription: "Поделитесь портфелем и целями — предложим понятный следующий шаг и формат сотрудничества."
   },
@@ -114,7 +114,7 @@ export const supplierPageByLocale: Record<Locale, SupplierPageCopy> = {
     formSubmit: "Trimite cererea",
     uploadLabel: "Materiale pentru cerere (opțional)",
     uploadHint:
-      "După integrarea încărcării fișierelor veți putea atașa aici one-pager, catalog, certificate și alte documente.",
+      "One-pager, catalog, certificate — PDF, imagini, Office, ZIP. Până la 5 fișiere, ~5 MB fiecare.",
     ctaTitle: "Discutăm intrarea produsului sau brandului în Moldova și România",
     ctaDescription: "Trimiteți portofoliul și obiectivele — propunem un pas următor clar și un format de cooperare."
   },
@@ -159,7 +159,7 @@ export const supplierPageByLocale: Record<Locale, SupplierPageCopy> = {
     formSubmit: "Send supplier inquiry",
     uploadLabel: "Materials with your inquiry (optional)",
     uploadHint:
-      "Once file upload is connected, you will be able to attach a one-pager, catalog, certificates, and other documents here.",
+      "One-pager, catalog, certificates — PDF, images, Office, or ZIP. Up to 5 files, about 5 MB each.",
     ctaTitle: "Let's discuss bringing your product or brand to Moldova and Romania",
     ctaDescription: "Share your portfolio and objectives — we will suggest a clear next step and cooperation format."
   }

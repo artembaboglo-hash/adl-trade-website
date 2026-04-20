@@ -70,7 +70,7 @@ export const buyerPageByLocale: Record<Locale, BuyerPageCopy> = {
     formSubmit: "Отправить запрос",
     uploadLabel: "Материалы к заявке (по желанию)",
     uploadHint:
-      "После подключения обмена файлами можно будет прикрепить спецификацию полки, перечень SKU или другие документы.",
+      "Планограммы, списки SKU, прайсы — PDF, изображения, Office, ZIP. До 5 файлов, до ~5 МБ каждый.",
     ctaTitle: "Усильте ассортимент вместе с ADL Trade",
     ctaDescription: "Сообщите приоритеты по каналам и категориям — предложим понятный следующий шаг сотрудничества."
   },
@@ -118,7 +118,7 @@ export const buyerPageByLocale: Record<Locale, BuyerPageCopy> = {
     formSubmit: "Trimite cererea",
     uploadLabel: "Materiale pentru cerere (opțional)",
     uploadHint:
-      "După integrarea încărcării fișierelor veți putea atașa specificații de raft, listă SKU sau alte documente.",
+      "Planograme, liste SKU, prețuri — PDF, imagini, Office, ZIP. Până la 5 fișiere, ~5 MB fiecare.",
     ctaTitle: "Consolidați asortimentul cu ADL Trade",
     ctaDescription: "Trimiteți prioritățile pe canale și categorii — propunem un pas următor clar de cooperare."
   },
@@ -164,7 +164,7 @@ export const buyerPageByLocale: Record<Locale, BuyerPageCopy> = {
     formSubmit: "Send buyer inquiry",
     uploadLabel: "Materials with your inquiry (optional)",
     uploadHint:
-      "Once file upload is connected, you can attach planograms, SKU lists, or other supporting documents here.",
+      "Planograms, SKU lists, price files — PDF, images, Office, or ZIP. Up to 5 files, about 5 MB each.",
     ctaTitle: "Strengthen your assortment with ADL Trade",
     ctaDescription: "Tell us your channel and category priorities — we will suggest a clear next step for cooperation."
   }

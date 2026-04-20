@@ -193,6 +193,9 @@ export default async function ContactsPage({ params }: { params: Promise<{ local
                 submitLabel={t.formSubmit}
                 formSource="contacts"
                 locale={locale}
+                showUploadPlaceholder
+                uploadLabel={t.uploadLabel}
+                uploadHint={t.uploadHint}
                 fields={[
                   { name: "name", label: locale === "ro" ? "Nume" : locale === "ru" ? "Имя" : "Name", required: true },
                   {

@@ -2,6 +2,7 @@ import dns from "node:dns";
 import net from "node:net";
 import nodemailer from "nodemailer";
 import type { Transporter } from "nodemailer";
+import type { InquiryAttachment } from "@/lib/inquiry-attachments";
 
 const dnsLookup = dns.promises.lookup;
 
@@ -9,6 +10,7 @@ export type InquiryMailInput = {
   subject: string;
   text: string;
   replyTo?: string;
+  attachments?: InquiryAttachment[];
 };
 
 /**
@@ -74,6 +76,12 @@ async function sendViaResend(input: InquiryMailInput, apiKey: string): Promise<v
     text: input.text
   };
   if (input.replyTo) body.reply_to = input.replyTo;
+  if (input.attachments?.length) {
+    body.attachments = input.attachments.map((a) => ({
+      filename: a.filename,
+      content: a.content.toString("base64")
+    }));
+  }
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -111,7 +119,15 @@ export async function sendInquiryMail(input: InquiryMailInput): Promise<void> {
     to: getMailToAddress(),
     replyTo: input.replyTo,
     subject: input.subject,
-    text: input.text
+    text: input.text,
+    ...(input.attachments?.length
+      ? {
+          attachments: input.attachments.map((a) => ({
+            filename: a.filename,
+            content: a.content
+          }))
+        }
+      : {})
   });
 }
 
