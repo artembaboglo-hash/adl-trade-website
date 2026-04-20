@@ -1,8 +1,10 @@
 export type InquiryAttachment = { filename: string; content: Buffer };
 
 const DEFAULT_MAX_FILES = 5;
-const DEFAULT_MAX_PER_FILE = 5 * 1024 * 1024;
-const DEFAULT_MAX_TOTAL = 12 * 1024 * 1024;
+/** Per file (binary). Default 25 MiB. */
+const DEFAULT_MAX_PER_FILE = 25 * 1024 * 1024;
+/** Combined attachments (binary). Default 50 MiB (e.g. two 25 MiB files). Lower via env if using Resend (~40 MB encoded per email). */
+const DEFAULT_MAX_TOTAL = 50 * 1024 * 1024;
 
 function envInt(key: string, fallback: number): number {
   const v = process.env[key]?.trim();

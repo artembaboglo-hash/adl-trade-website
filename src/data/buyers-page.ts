@@ -70,7 +70,7 @@ export const buyerPageByLocale: Record<Locale, BuyerPageCopy> = {
     formSubmit: "Отправить запрос",
     uploadLabel: "Материалы к заявке (по желанию)",
     uploadHint:
-      "Планограммы, списки SKU, прайсы — PDF, изображения, Office, ZIP. До 5 файлов, до ~5 МБ каждый.",
+      "Планограммы, списки SKU, прайсы — PDF, изображения, Office, ZIP. До 5 файлов, до ~25 МБ каждый (общий лимит ~50 МБ).",
     ctaTitle: "Усильте ассортимент вместе с ADL Trade",
     ctaDescription: "Сообщите приоритеты по каналам и категориям — предложим понятный следующий шаг сотрудничества."
   },
@@ -118,7 +118,7 @@ export const buyerPageByLocale: Record<Locale, BuyerPageCopy> = {
     formSubmit: "Trimite cererea",
     uploadLabel: "Materiale pentru cerere (opțional)",
     uploadHint:
-      "Planograme, liste SKU, prețuri — PDF, imagini, Office, ZIP. Până la 5 fișiere, ~5 MB fiecare.",
+      "Planograme, liste SKU, prețuri — PDF, imagini, Office, ZIP. Până la 5 fișiere, ~25 MB fiecare (total ~50 MB).",
     ctaTitle: "Consolidați asortimentul cu ADL Trade",
     ctaDescription: "Trimiteți prioritățile pe canale și categorii — propunem un pas următor clar de cooperare."
   },
@@ -164,7 +164,7 @@ export const buyerPageByLocale: Record<Locale, BuyerPageCopy> = {
     formSubmit: "Send buyer inquiry",
     uploadLabel: "Materials with your inquiry (optional)",
     uploadHint:
-      "Planograms, SKU lists, price files — PDF, images, Office, or ZIP. Up to 5 files, about 5 MB each.",
+      "Planograms, SKU lists, price files — PDF, images, Office, or ZIP. Up to 5 files, about 25 MB each (about 50 MB combined).",
     ctaTitle: "Strengthen your assortment with ADL Trade",
     ctaDescription: "Tell us your channel and category priorities — we will suggest a clear next step for cooperation."
   }

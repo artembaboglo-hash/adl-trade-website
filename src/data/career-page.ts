@@ -72,7 +72,7 @@ export const careerPageByLocale: Record<Locale, CareerPageCopy> = {
     formSubmit: "Отправить заявку",
     uploadLabel: "Резюме или файлы (по желанию)",
     uploadHint:
-      "Резюме, портфолио, сопроводительное — PDF, изображения, Office, ZIP. До 5 файлов, до ~5 МБ каждый.",
+      "Резюме, портфолио, сопроводительное — PDF, изображения, Office, ZIP. До 5 файлов, до ~25 МБ каждый (общий лимит ~50 МБ).",
     ctaTitle: "Присоединяйтесь к ADL Trade",
     ctaDescription: "Хотите обсудить роль или стажировку — напишите нам напрямую через контакты.",
     vacanciesStripOpen: "Открытых позиций: {count}",
@@ -127,7 +127,7 @@ export const careerPageByLocale: Record<Locale, CareerPageCopy> = {
     formSubmit: "Trimite aplicația",
     uploadLabel: "CV sau fișiere (opțional)",
     uploadHint:
-      "CV, portofoliu, scrisoare de intenție — PDF, imagini, Office, ZIP. Până la 5 fișiere, ~5 MB fiecare.",
+      "CV, portofoliu, scrisoare de intenție — PDF, imagini, Office, ZIP. Până la 5 fișiere, ~25 MB fiecare (total ~50 MB).",
     ctaTitle: "Alătură-te ADL Trade",
     ctaDescription: "Vreți să discutați un rol sau un stagiu — scrieți-ne direct prin pagina de contact.",
     vacanciesStripOpen: "Posturi deschise: {count}",
@@ -182,7 +182,7 @@ export const careerPageByLocale: Record<Locale, CareerPageCopy> = {
     formSubmit: "Submit application",
     uploadLabel: "CV or attachments (optional)",
     uploadHint:
-      "CV, portfolio, cover letter — PDF, images, Office, or ZIP. Up to 5 files, about 5 MB each.",
+      "CV, portfolio, cover letter — PDF, images, Office, or ZIP. Up to 5 files, about 25 MB each (about 50 MB combined).",
     ctaTitle: "Join ADL Trade",
     ctaDescription: "Prefer to discuss a role or internship first — reach out via our contact page.",
     vacanciesStripOpen: "Open roles: {count}",

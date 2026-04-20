@@ -52,7 +52,7 @@ export const contactsPageByLocale: Record<Locale, ContactsPageCopy> = {
     formSubmit: "Отправить сообщение",
     uploadLabel: "Вложения (по желанию)",
     uploadHint:
-      "PDF, изображения, Office, ZIP — до 5 файлов, до ~5 МБ каждый (лимиты на сервере могут отличаться)."
+      "PDF, изображения, Office, ZIP — до 5 файлов, до ~25 МБ каждый, суммарно до ~50 МБ (лимиты почты могут отличаться)."
   },
   ro: {
     metaDescription:
@@ -80,7 +80,7 @@ export const contactsPageByLocale: Record<Locale, ContactsPageCopy> = {
     formSubmit: "Trimite mesajul",
     uploadLabel: "Atașamente (opțional)",
     uploadHint:
-      "PDF, imagini, Office, ZIP — până la 5 fișiere, ~5 MB fiecare (limitele serverului pot varia)."
+      "PDF, imagini, Office, ZIP — până la 5 fișiere, ~25 MB fiecare, ~50 MB în total (limitele e-mail pot varia)."
   },
   en: {
     metaDescription:
@@ -108,6 +108,6 @@ export const contactsPageByLocale: Record<Locale, ContactsPageCopy> = {
     formSubmit: "Send message",
     uploadLabel: "Attachments (optional)",
     uploadHint:
-      "PDF, images, Office documents, or ZIP — up to 5 files, about 5 MB each (server limits may vary)."
+      "PDF, images, Office documents, or ZIP — up to 5 files, about 25 MB each, about 50 MB combined (mail provider limits may vary)."
   }
 };
