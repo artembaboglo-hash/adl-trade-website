@@ -95,6 +95,8 @@ export default async function SuppliersPage({ params }: { params: Promise<{ loca
               title={t.formTitle}
               intro={t.formIntro}
               submitLabel={t.formSubmit}
+              formSource="suppliers"
+              locale={locale}
               showUploadPlaceholder
               uploadLabel={t.uploadLabel}
               uploadHint={t.uploadHint}

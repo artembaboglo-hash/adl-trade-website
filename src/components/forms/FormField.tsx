@@ -35,6 +35,7 @@ export function FormField({
       {textarea ? (
         <textarea
           id={id}
+          name={name}
           value={value}
           onChange={(event) => onChange(name, event.target.value)}
           placeholder={placeholder}
@@ -45,6 +46,7 @@ export function FormField({
       ) : (
         <input
           id={id}
+          name={name}
           type={type}
           value={value}
           onChange={(event) => onChange(name, event.target.value)}

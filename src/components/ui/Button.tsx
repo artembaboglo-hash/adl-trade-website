@@ -8,6 +8,7 @@ type ButtonProps = {
   className?: string;
   type?: "button" | "submit";
   onClick?: () => void;
+  disabled?: boolean;
 };
 
 const baseClass =
@@ -27,7 +28,15 @@ const variants = {
     "bg-gradient-to-r from-accent-tealDark to-accent-teal px-8 text-white shadow-md shadow-accent-teal/25 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent-teal/35"
 };
 
-export function Button({ href, children, variant = "primary", className, type = "button", onClick }: ButtonProps) {
+export function Button({
+  href,
+  children,
+  variant = "primary",
+  className,
+  type = "button",
+  onClick,
+  disabled
+}: ButtonProps) {
   if (href) {
     return (
       <Link href={href} className={cn(baseClass, variants[variant], className)}>
@@ -36,7 +45,17 @@ export function Button({ href, children, variant = "primary", className, type = 
     );
   }
   return (
-    <button type={type} onClick={onClick} className={cn(baseClass, variants[variant], className)}>
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={cn(
+        baseClass,
+        variants[variant],
+        disabled && "pointer-events-none cursor-not-allowed opacity-60",
+        className
+      )}
+    >
       {children}
     </button>
   );

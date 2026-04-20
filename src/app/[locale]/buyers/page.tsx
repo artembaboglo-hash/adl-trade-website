@@ -84,6 +84,8 @@ export default async function BuyersPage({ params }: { params: Promise<{ locale:
               title={t.formTitle}
               intro={t.formIntro}
               submitLabel={t.formSubmit}
+              formSource="buyers"
+              locale={locale}
               showUploadPlaceholder
               uploadLabel={t.uploadLabel}
               uploadHint={t.uploadHint}

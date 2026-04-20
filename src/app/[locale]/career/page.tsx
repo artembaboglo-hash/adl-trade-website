@@ -127,6 +127,8 @@ export default async function CareerPage({ params }: { params: Promise<{ locale:
             title={t.formTitle}
             intro={t.formIntro}
             submitLabel={t.formSubmit}
+            formSource="career"
+            locale={locale}
             showUploadPlaceholder
             uploadLabel={t.uploadLabel}
             uploadHint={t.uploadHint}

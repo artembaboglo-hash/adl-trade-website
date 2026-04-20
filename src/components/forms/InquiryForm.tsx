@@ -1,9 +1,11 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useId, useMemo, useRef, useState } from "react";
 import { FormField } from "@/components/forms/FormField";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import type { Locale } from "@/lib/i18n";
+import type { InquiryFormSource } from "@/lib/inquiry-types";
 import { isEmailValid, validateRequiredFields, type ValidationErrors } from "@/lib/validation";
 
 type Field = {
@@ -14,6 +16,37 @@ type Field = {
   textarea?: boolean;
   required?: boolean;
 };
+
+const FORM_UI: Record<
+  Locale,
+  { sending: string; success: string; network: string; server: string; rateLimit: string }
+> = {
+  en: {
+    sending: "Sending…",
+    success: "Thank you. Your request has been submitted successfully.",
+    network: "Could not reach the server. Check your connection and try again.",
+    server: "Something went wrong while sending. Please try again later or email us directly.",
+    rateLimit: "Too many requests. Please wait a few minutes and try again."
+  },
+  ro: {
+    sending: "Se trimite…",
+    success: "Mulțumim. Solicitarea a fost trimisă cu succes.",
+    network: "Nu s-a putut contacta serverul. Verificați conexiunea și încercați din nou.",
+    server: "A apărut o eroare la trimitere. Încercați mai târziu sau scrieți-ne direct pe email.",
+    rateLimit: "Prea multe solicitări. Așteptați câteva minute și încercați din nou."
+  },
+  ru: {
+    sending: "Отправка…",
+    success: "Спасибо. Ваш запрос успешно отправлен.",
+    network: "Не удалось связаться с сервером. Проверьте соединение и попробуйте снова.",
+    server: "При отправке произошла ошибка. Попробуйте позже или напишите нам на почту.",
+    rateLimit: "Слишком много запросов. Подождите несколько минут и попробуйте снова."
+  }
+};
+
+function uiCopy(locale: string) {
+  return FORM_UI[locale as Locale] ?? FORM_UI.en;
+}
 
 export type InquiryFormProps = {
   title: string;
@@ -37,6 +70,10 @@ export type InquiryFormProps = {
   uploadLabel?: string;
   /** Overrides default English upload hint when `showUploadPlaceholder` is set. */
   uploadHint?: string;
+  /** Identifies the form for email routing and logs. */
+  formSource: InquiryFormSource;
+  /** Active locale for API and user-facing status messages. */
+  locale: Locale;
 };
 
 export function InquiryForm({
@@ -50,9 +87,12 @@ export function InquiryForm({
   submitLabel = "Submit Inquiry",
   showUploadPlaceholder,
   uploadLabel,
-  uploadHint
+  uploadHint,
+  formSource,
+  locale
 }: InquiryFormProps) {
   const formId = useId();
+  const trapRef = useRef<HTMLInputElement>(null);
   const initial = useMemo(
     () =>
       fields.reduce<Record<string, string>>((acc, field) => {
@@ -64,14 +104,18 @@ export function InquiryForm({
 
   const [data, setData] = useState<Record<string, string>>(initial);
   const [errors, setErrors] = useState<ValidationErrors>({});
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "success" | "error" | "network">("idle");
+  const [submitting, setSubmitting] = useState(false);
+  const [serverMessage, setServerMessage] = useState<string | null>(null);
+  const copy = uiCopy(locale);
 
   const onChange = (name: string, value: string) => {
     setData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setServerMessage(null);
     const required = fields.filter((field) => field.required).map((field) => field.name);
     const validation = validateRequiredFields(data, required);
 
@@ -86,8 +130,51 @@ export function InquiryForm({
       return;
     }
 
-    // Placeholder for backend integration.
-    setStatus("success");
+    if (trapRef.current?.value?.trim()) {
+      setStatus("success");
+      return;
+    }
+
+    setSubmitting(true);
+    setStatus("idle");
+    try {
+      const res = await fetch("/api/inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: formSource,
+          locale,
+          hp: trapRef.current?.value ?? "",
+          fields: data
+        })
+      });
+
+      if (res.status === 429) {
+        setStatus("error");
+        setServerMessage(copy.rateLimit);
+        return;
+      }
+
+      if (res.status === 503) {
+        setStatus("error");
+        setServerMessage(copy.server);
+        return;
+      }
+
+      if (!res.ok) {
+        setStatus("error");
+        setServerMessage(copy.server);
+        return;
+      }
+
+      setStatus("success");
+      setData(initial);
+    } catch {
+      setStatus("network");
+      setServerMessage(copy.network);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const Wrapper: "section" | "div" = embedded ? "div" : "section";
@@ -113,6 +200,9 @@ export function InquiryForm({
         noValidate
         aria-labelledby={labelledBy}
       >
+        <div className="pointer-events-none absolute -left-[9999px] top-0 h-0 w-0 overflow-hidden opacity-0" aria-hidden>
+          <input ref={trapRef} type="text" tabIndex={-1} autoComplete="off" />
+        </div>
         {fields.map((field) => (
           <div key={field.name} className={field.textarea ? "md:col-span-2" : ""}>
             <FormField
@@ -144,20 +234,25 @@ export function InquiryForm({
           </div>
         ) : null}
         <div className="md:col-span-2">
-          <Button type="submit" variant="primary">
-            {submitLabel}
+          <Button type="submit" variant="primary" disabled={submitting}>
+            {submitting ? copy.sending : submitLabel}
           </Button>
         </div>
       </form>
       {fillHeight ? <div className="min-h-0 flex-1" aria-hidden /> : null}
       {status === "success" ? (
         <p role="status" aria-live="polite" className="mt-4 rounded-md bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
-          Thank you. Your request has been submitted successfully.
+          {copy.success}
         </p>
       ) : null}
       {status === "error" ? (
         <p role="alert" aria-live="assertive" className="mt-4 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">
-          Please review the highlighted fields and try again.
+          {serverMessage ?? "Please review the highlighted fields and try again."}
+        </p>
+      ) : null}
+      {status === "network" ? (
+        <p role="alert" aria-live="assertive" className="mt-4 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">
+          {serverMessage ?? copy.network}
         </p>
       ) : null}
     </Wrapper>
