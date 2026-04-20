@@ -3,9 +3,11 @@ import { notFound } from "next/navigation";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ValueCard } from "@/components/ui/Cards";
+import { DistributionChannelsSection } from "@/components/sections/DistributionChannelsSection";
 import { PartnerLogoMarquee } from "@/components/sections/PartnerLogoMarquee";
 import { CategoryPortfolioCard } from "@/components/sections/CategoryPortfolioSection";
 import { supplierBrandLogos } from "@/data/partner-logos";
+import { distributionChannelsByLocale } from "@/data/distribution-channels";
 import { supplierPageByLocale } from "@/data/suppliers-page";
 import { categorySectionByLocale } from "@/data/category-portfolio";
 import { CollapsibleInquiryForm } from "@/components/forms/CollapsibleInquiryForm";
@@ -66,6 +68,15 @@ export default async function SuppliersPage({ params }: { params: Promise<{ loca
             </div>
           </div>
         </section>
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <DistributionChannelsSection
+          headingId="suppliers-distribution-channels-heading"
+          eyebrow={distributionChannelsByLocale[locale].eyebrow}
+          title={distributionChannelsByLocale[locale].title}
+          description={distributionChannelsByLocale[locale].lead}
+          cards={distributionChannelsByLocale[locale].cards}
+        />
       </RevealOnScroll>
       <RevealOnScroll>
         <section className="section-space">

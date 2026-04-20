@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CompanyIntroSection, type IntroPillar } from "@/components/sections/CompanyIntroSection";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { DistributionChannelsSection } from "@/components/sections/DistributionChannelsSection";
 import { StrengthsSection } from "@/components/sections/StrengthsSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { PartnerMarqueeSection } from "@/components/sections/PartnerMarqueeSection";
@@ -10,6 +11,7 @@ import { buyerChannelLogos, supplierBrandLogos } from "@/data/partner-logos";
 import { SplitAudienceSection } from "@/components/sections/SplitAudienceSection";
 import { CategoryPortfolioSection } from "@/components/sections/CategoryPortfolioSection";
 import { categorySectionByLocale } from "@/data/category-portfolio";
+import { distributionChannelsByLocale } from "@/data/distribution-channels";
 import { StatsBlock } from "@/components/ui/Stats";
 import { CTASection } from "@/components/sections/CTASection";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
@@ -71,6 +73,16 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           eyebrow={c.advantages.eyebrow}
           title={c.advantages.title}
           items={c.advantages.items}
+        />
+      </RevealOnScroll>
+
+      <RevealOnScroll>
+        <DistributionChannelsSection
+          headingId="home-distribution-channels-heading"
+          eyebrow={distributionChannelsByLocale[locale].eyebrow}
+          title={distributionChannelsByLocale[locale].title}
+          description={distributionChannelsByLocale[locale].lead}
+          cards={distributionChannelsByLocale[locale].cards}
         />
       </RevealOnScroll>
 

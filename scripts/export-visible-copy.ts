@@ -11,6 +11,7 @@ import { careerPageByLocale } from "../src/data/career-page";
 import { careerVacanciesByLocale } from "../src/data/career-vacancies";
 import { categorySectionByLocale } from "../src/data/category-portfolio";
 import { contactsPageByLocale } from "../src/data/contacts-page";
+import { distributionChannelsByLocale } from "../src/data/distribution-channels";
 import { dictionaries } from "../src/data/dictionaries";
 import { homeCopy } from "../src/data/home-page";
 import { getHomePhotos } from "../src/data/home-photos";
@@ -214,6 +215,11 @@ function run(): void {
     lines.push("## Главная страница (`home-page.ts`)");
     lines.push("");
     lines.push(jsonBlock(`homeCopy.${locale}`, homeCopy[locale]));
+    lines.push("");
+
+    lines.push("## Каналы дистрибуции (главная, `distribution-channels.ts`)");
+    lines.push("");
+    lines.push(jsonBlock(`distributionChannels.${locale}`, distributionChannelsByLocale[locale]));
     lines.push("");
 
     lines.push("## Бегущая строка партнёров");

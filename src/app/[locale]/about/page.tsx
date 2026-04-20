@@ -14,8 +14,10 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { StatsBlock } from "@/components/ui/Stats";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { CTASection } from "@/components/sections/CTASection";
+import { DistributionChannelsSection } from "@/components/sections/DistributionChannelsSection";
 import { PartnerMarqueeSection } from "@/components/sections/PartnerMarqueeSection";
 import { getAboutContent } from "@/data/about";
+import { distributionChannelsByLocale } from "@/data/distribution-channels";
 import { getAboutPhotos } from "@/data/about-photos";
 import { getHomePhotos } from "@/data/home-photos";
 import { partnersMarqueeCopy } from "@/data/partners-marquee";
@@ -152,6 +154,16 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </div>
           </div>
         </section>
+      </RevealOnScroll>
+
+      <RevealOnScroll>
+        <DistributionChannelsSection
+          headingId="about-distribution-channels-heading"
+          eyebrow={distributionChannelsByLocale[locale].eyebrow}
+          title={distributionChannelsByLocale[locale].title}
+          description={distributionChannelsByLocale[locale].lead}
+          cards={distributionChannelsByLocale[locale].cards}
+        />
       </RevealOnScroll>
 
       <RevealOnScroll>
