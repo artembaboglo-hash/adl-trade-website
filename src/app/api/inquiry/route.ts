@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createInquiryTransport, getMailFromAddress, getMailToAddress } from "@/lib/inquiry-mail";
+import { isInquiryMailConfigured, sendInquiryMail } from "@/lib/inquiry-mail";
 import { isInquiryRateLimited } from "@/lib/inquiry-rate-limit";
 import { isInquiryFormSource } from "@/lib/inquiry-types";
 import { locales } from "@/lib/i18n";
@@ -99,9 +99,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "empty_fields" }, { status: 400 });
     }
 
-    const transport = await createInquiryTransport();
-    if (!transport) {
-      console.error("[api/inquiry] Missing SMTP env (SMTP_HOST, SMTP_USER, SMTP_PASS)");
+    if (!isInquiryMailConfigured()) {
+      console.error("[api/inquiry] Missing mail env (RESEND_API_KEY or SMTP_HOST, SMTP_USER, SMTP_PASS)");
       return NextResponse.json({ error: "mail_not_configured" }, { status: 503 });
     }
 
@@ -124,12 +123,10 @@ export async function POST(request: NextRequest) {
 
     const replyTo = clean.email && isEmailValid(clean.email) ? clean.email : undefined;
 
-    await transport.sendMail({
-      from: getMailFromAddress(),
-      to: getMailToAddress(),
-      replyTo,
+    await sendInquiryMail({
       subject: `[ADL Trade] ${sourceLabel} — ${subjectLine}`.slice(0, 240),
-      text: textBody
+      text: textBody,
+      replyTo
     });
 
     return NextResponse.json({ ok: true }, { status: 200 });
