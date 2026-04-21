@@ -1,7 +1,7 @@
 /**
  * Department / topic routing — emails & phones per office (by topic).
  */
-export type TopicChannelId = "general" | "suppliers" | "buyers" | "career";
+export type TopicChannelId = "orders" | "sales" | "suppliers" | "buyers" | "accounting" | "career";
 
 export type OfficeChannel = {
   email: string;
@@ -16,19 +16,29 @@ export type ContactTopicChannel = {
 
 export const contactTopicChannels: ContactTopicChannel[] = [
   {
-    id: "general",
-    moldova: { email: "info.md@adltrade.com", phone: "+373 22 111 111" },
-    romania: { email: "info.ro@adltrade.com", phone: "+40 21 111 1111" }
+    id: "orders",
+    moldova: { email: "order.md@adltrade.com", phone: "+373 22 101 010" },
+    romania: { email: "order.ro@adltrade.com", phone: "+40 21 202 0202" }
+  },
+  {
+    id: "sales",
+    moldova: { email: "sales.md@adltrade.com", phone: "+373 22 101 010" },
+    romania: { email: "sales.ro@adltrade.com", phone: "+40 21 202 0202" }
   },
   {
     id: "suppliers",
-    moldova: { email: "suppliers.md@adltrade.com", phone: "+373 22 222 222" },
-    romania: { email: "suppliers.ro@adltrade.com", phone: "+40 21 222 2222" }
+    moldova: { email: "supplier@adltrade.com", phone: "+373 22 101 010" },
+    romania: { email: "supplier@adltrade.com", phone: "+40 21 202 0202" }
   },
   {
     id: "buyers",
-    moldova: { email: "buyers.md@adltrade.com", phone: "+373 22 333 333" },
-    romania: { email: "buyers.ro@adltrade.com", phone: "+40 21 333 3333" }
+    moldova: { email: "buyer@adltrade.com", phone: "+373 22 101 010" },
+    romania: { email: "buyer@adltrade.com", phone: "+40 21 202 0202" }
+  },
+  {
+    id: "accounting",
+    moldova: { email: "acc.md@adltrade.com", phone: "+373 22 101 010" },
+    romania: { email: "acc.ro@adltrade.com", phone: "+40 21 202 0202" }
   },
   {
     id: "career",

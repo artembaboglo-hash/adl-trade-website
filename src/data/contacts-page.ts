@@ -42,9 +42,11 @@ export const contactsPageByLocale: Record<Locale, ContactsPageCopy> = {
     labelAddress: "Адрес",
     topicsInlineTitle: "По направлениям",
     topicTitles: {
-      general: "Общие вопросы",
+      orders: "Заказы",
+      sales: "Отдел продаж",
       suppliers: "Поставщикам",
       buyers: "Покупателям",
+      accounting: "Бухгалтерия",
       career: "Карьера"
     },
     formTitle: "Форма обратной связи",
@@ -70,9 +72,11 @@ export const contactsPageByLocale: Record<Locale, ContactsPageCopy> = {
     labelAddress: "Adresă",
     topicsInlineTitle: "Pe direcții",
     topicTitles: {
-      general: "Întrebări generale",
+      orders: "Comenzi",
+      sales: "Departament vânzări",
       suppliers: "Furnizori",
       buyers: "Cumpărători",
+      accounting: "Contabilitate",
       career: "Carieră"
     },
     formTitle: "Formular de contact",
@@ -98,9 +102,11 @@ export const contactsPageByLocale: Record<Locale, ContactsPageCopy> = {
     labelAddress: "Address",
     topicsInlineTitle: "By topic",
     topicTitles: {
-      general: "General inquiries",
+      orders: "Orders",
+      sales: "Sales",
       suppliers: "Suppliers",
       buyers: "Buyers",
+      accounting: "Accounting",
       career: "Careers"
     },
     formTitle: "Contact form",
