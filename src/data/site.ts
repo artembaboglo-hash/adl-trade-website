@@ -20,7 +20,7 @@ export const siteConfig = {
     offices: [
       {
         id: "moldova" as const,
-        email: "office.md@adltrade.com",
+        email: "info@adltrade.com",
         phone: "+373 22 101 010",
         addressLines: [
           "Blvd. Grigore Vieru 22/1",
@@ -32,7 +32,7 @@ export const siteConfig = {
       },
       {
         id: "romania" as const,
-        email: "office.ro@adltrade.com",
+        email: "info@adltrade.com",
         phone: "+40 21 202 0202",
         addressLines: [
           "Strada Vulcan Județul, Nr. 52-54, Etaj 1",
