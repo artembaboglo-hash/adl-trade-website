@@ -91,6 +91,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           eyebrow={partnersMarquee.eyebrow}
           title={partnersMarquee.title}
           description={partnersMarquee.description}
+          trustTagline={partnersMarquee.trustTagline}
           suppliersTitle={partnersMarquee.suppliersTitle}
           buyersTitle={partnersMarquee.buyersTitle}
           supplierLogos={supplierBrandLogos}

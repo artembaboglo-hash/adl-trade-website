@@ -44,7 +44,7 @@ export const siteConfig = {
       }
     ] satisfies SiteOffice[]
   },
-  /** Public profile URLs — replace with your real handles when ready */
+  /** Footer / social icon targets */
   social: {
     facebook: "https://www.facebook.com/adltrade",
     instagram: "https://www.instagram.com/adltrade",

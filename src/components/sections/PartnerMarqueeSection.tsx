@@ -7,6 +7,7 @@ type PartnerMarqueeSectionProps = {
   eyebrow: string;
   title: string;
   description: string;
+  trustTagline: string;
   suppliersTitle: string;
   buyersTitle: string;
   supplierLogos: PartnerLogo[];
@@ -19,6 +20,7 @@ export function PartnerMarqueeSection({
   eyebrow,
   title,
   description,
+  trustTagline,
   suppliersTitle,
   buyersTitle,
   supplierLogos,
@@ -55,6 +57,9 @@ export function PartnerMarqueeSection({
           maxWidthClass="max-w-4xl lg:max-w-[52rem]"
           descriptionClassName="mx-auto max-w-[min(100%,46rem)] text-balance leading-snug sm:max-w-[48rem] lg:max-w-[52rem] md:text-[1.0625rem] md:leading-snug"
         />
+        <p className="mx-auto mt-5 max-w-[min(100%,46rem)] text-center text-sm font-semibold tracking-wide text-accent-tealDark/90 md:mt-6 md:text-[0.9375rem]">
+          {trustTagline}
+        </p>
 
         <div className="mx-auto mt-8 max-w-6xl md:mt-9">
           <div>

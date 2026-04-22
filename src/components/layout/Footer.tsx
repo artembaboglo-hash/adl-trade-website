@@ -51,6 +51,7 @@ function SocialLink({
   return (
     <a
       href={href}
+      title={label}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
